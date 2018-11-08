@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--状态栏-->
-    <color name="colorPrimary">#3fa2e4</color>
-    <color name="colorPrimaryDark">#3fa2e4</color>
+    <color name="colorPrimary">#44d025</color>
+    <color name="colorPrimaryDark">#44d025</color>
     <color name="colorAccent">#FF4081</color>
     <!--注册登录-->
     <color name="primary">#3fa2e4</color>

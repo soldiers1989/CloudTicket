@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.ycgrp.cloudticket.CloudTicketApplication;
 import com.ycgrp.cloudticket.R;
 import com.ycgrp.cloudticket.api.BaseCallBackListener;
 import com.ycgrp.cloudticket.api.NetAPI;
@@ -25,6 +27,7 @@ import com.ycgrp.cloudticket.mvp.ui.activity.LoanRecordActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.MyCloudTicketActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.StartCloudTicketActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.WaitApproveActivity;
+import com.ycgrp.cloudticket.utils.DisplayUtils;
 import com.ycgrp.cloudticket.utils.GlideImageLoader;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 import com.youth.banner.Banner;
@@ -38,7 +41,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class IndexFragment extends BaseFragment  {
+public class IndexFragment extends Fragment  {
 
 
     public static final String TAG = "MeFragment";
@@ -48,11 +51,11 @@ public class IndexFragment extends BaseFragment  {
      */
     protected boolean isCreated = false;
 
-    /***
-     * Banner
-     */
-    @BindView(R.id.banner)
-    Banner mBanner;
+//    /***
+//     * Banner
+//     */
+//    @BindView(R.id.banner)
+//    Banner mBanner;
     /**
      * 发起云票
      */
@@ -74,6 +77,16 @@ public class IndexFragment extends BaseFragment  {
     @BindView(R.id.rel_loan_record)
     RelativeLayout rel_loan_record;
 
+    /**
+     * 益才农业
+     */
+    @BindView(R.id.yicai)
+    RelativeLayout yicai;
+
+    /**
+     * ImmersionBar
+     */
+    private ImmersionBar mImmersionBar;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -86,13 +99,17 @@ public class IndexFragment extends BaseFragment  {
         super.onCreate(savedInstanceState);
         // 标记
         isCreated = true;
+//        setTitleVisiable(false);
+        mImmersionBar = ImmersionBar.with(this)
+                .statusBarColor(R.color.colorPrimary);
+        mImmersionBar.init();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         //开始轮播
-        mBanner.startAutoPlay();
+//        mBanner.startAutoPlay();
 
     }
 
@@ -100,7 +117,15 @@ public class IndexFragment extends BaseFragment  {
     public void onStop() {
         super.onStop();
         //结束轮播
-        mBanner.stopAutoPlay();
+//        mBanner.stopAutoPlay();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null){
+            mImmersionBar.destroy();
+        }
     }
 
     @Nullable
@@ -114,17 +139,17 @@ public class IndexFragment extends BaseFragment  {
 
 
     private void initView() {
-        //图片
-        List<?> images = new ArrayList<>();
-        //轮播图片地址
-        String url1 = "http://bmob-cdn-21019.b0.upaiyun.com/2018/11/02/552f1a8f40276dac802db877e231aa4a.png";
-        String url2 = "http://bmob-cdn-21019.b0.upaiyun.com/2018/11/02/84334d7240ff28c4800dc12c813a18f4.png";
-        String[] urls = {url1, url2};
-        List list = Arrays.asList(urls);
-        images = new ArrayList<>(list);
-        mBanner.setImages(images)
-                .setImageLoader(new GlideImageLoader())
-                .start();
+//        //图片
+//        List<?> images = new ArrayList<>();
+//        //轮播图片地址
+//        String url1 = "http://bmob-cdn-21019.b0.upaiyun.com/2018/11/02/552f1a8f40276dac802db877e231aa4a.png";
+//        String url2 = "http://bmob-cdn-21019.b0.upaiyun.com/2018/11/02/84334d7240ff28c4800dc12c813a18f4.png";
+//        String[] urls = {url1, url2};
+//        List list = Arrays.asList(urls);
+//        images = new ArrayList<>(list);
+//        mBanner.setImages(images)
+//                .setImageLoader(new GlideImageLoader())
+//                .start();
 
 
     }
@@ -171,7 +196,8 @@ public class IndexFragment extends BaseFragment  {
         }
 
         if (isVisibleToUser) {
-            setTitle("首页");
+//            setTitle("首页");
+            mImmersionBar.statusBarColor(R.color.colorPrimary).init();
         }
     }
 

@@ -63,7 +63,8 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     //下拉刷新
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'//没有使用特殊Header，可以不加这行
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    //没有使用特殊Header，可以不加这行
     //右上角弹出
     implementation 'com.zaaach:toprightmenu:1.1.2'
 }

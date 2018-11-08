@@ -5,13 +5,14 @@
     android:id="@+id/line_loan_record"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".mvp.ui.activity.LoanRecordActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:layout_height="@dimen/x60"
+        android:background="@color/white"
         app:titleTextColor="@color/white">
 
         <TextView
@@ -21,7 +22,7 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:text="@string/tv_loan_record"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 

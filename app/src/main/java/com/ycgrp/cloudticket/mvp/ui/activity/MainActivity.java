@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ycgrp.cloudticket.CloudTicketApplication;
 import com.ycgrp.cloudticket.R;
 import com.ycgrp.cloudticket.event.MessageEvent;
@@ -40,12 +41,17 @@ public class MainActivity extends AppCompatActivity {
     private final int COUNT = TAB_TITLES.length;
     private MyViewPagerAdapter mAdapter;
     private ViewPager mViewPager;
-
+    /**
+     * ImmesionBar
+     */
+    private ImmersionBar mImmersionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.init();
 
     }
 
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(1);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
@@ -130,5 +137,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         //eventBus反注册
         EventBus.getDefault().unregister(this);
+//        mImmersionBar destory
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();
     }
 }

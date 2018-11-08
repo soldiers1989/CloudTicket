@@ -3,17 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-    <!--banner-->
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x240"></com.youth.banner.Banner>
+    <!--&lt;!&ndash;banner&ndash;&gt;-->
+    <!--<com.youth.banner.Banner-->
+    <!--android:id="@+id/banner"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/x240"></com.youth.banner.Banner>-->
     <!--分界线-->
+    <RelativeLayout
+        android:id="@+id/yicai"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x300"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/tv_yicai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="益才农业"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x35"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="农业金融服务平台"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x15"
+                android:layout_marginTop="@dimen/x5"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tv_yicai"
+                />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
     <View
         android:id="@+id/line_one"
         android:layout_width="match_parent"
         android:layout_height="@dimen/x15"
-        android:layout_below="@+id/banner"
+        android:layout_below="@+id/yicai"
         android:background="@color/view_line" />
     <!--审批云票和发布云票-->
     <LinearLayout
@@ -73,8 +109,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_two"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/x15">
+        android:layout_marginTop="@dimen/x15"
+        android:orientation="horizontal">
         <!--我的云票-->
         <RelativeLayout
             android:id="@+id/rel_my_cloud_ticket"
@@ -102,8 +138,9 @@
             android:id="@+id/rel_loan_record"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-           android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="1">
+
             <ImageView
                 android:id="@+id/ig_loan_record"
                 android:layout_width="wrap_content"

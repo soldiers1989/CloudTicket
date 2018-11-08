@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -39,7 +40,9 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * 投资云票
+ */
 public class TradeFragment extends BaseFragment implements BuySuccess {
 
     public static final String TAG = "TradeFragment";
@@ -91,10 +94,17 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
      * 接口买入成功回调刷新
      */
     private BuySuccess mBuySuccess;
+    /**
+     * ImmersionBar
+     */
+    private ImmersionBar mImmersionBar;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mImmersionBar = ImmersionBar.with(this)
+          .statusBarColor(R.color.white)
+        .statusBarDarkFont(true);
+        mImmersionBar.init();
     }
 
 
@@ -210,7 +220,13 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
         L.d(TAG, "onResume()---");
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null){
+            mImmersionBar.destroy();
+        }
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -220,7 +236,10 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
         }
 
         if (isVisibleToUser) {
-            setTitle("云票交易所");
+//            setTitle("云票交易所");
+            mImmersionBar.transparentStatusBar()
+                    .statusBarDarkFont(true)
+                    .init();
         }
     }
 

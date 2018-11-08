@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ycgrp.cloudticket.CloudTicketApplication;
 import com.ycgrp.cloudticket.R;
 import com.ycgrp.cloudticket.event.MessageEvent;
@@ -39,12 +40,19 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
      */
     @BindView(R.id.btn_login_out)
    Button btn_login_out;
-
+    /**
+     * ImmersionBar
+     */
+    private ImmersionBar mImmersionBar;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 标记
         isCreated = true;
+        mImmersionBar = ImmersionBar.with(this)
+                .statusBarColor(R.color.white)
+                .statusBarDarkFont(true);
+        mImmersionBar.init();
     }
 
 
@@ -63,6 +71,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null){
+            mImmersionBar.destroy();
+        }
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -72,8 +87,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         }
 
         if (isVisibleToUser) {
-            setTitle("我的");
-
+//            setTitle("我的");
+            mImmersionBar.transparentStatusBar()
+                    .statusBarDarkFont(true)
+                    .init();
         }
     }
 

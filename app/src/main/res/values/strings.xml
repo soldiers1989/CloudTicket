@@ -6,7 +6,7 @@
     <string name="myprefname">xiaomage.xml</string>
     <!--Tablayout-->
     <string name="index">首页</string>
-    <string name="trade">云票交易所</string>
+    <string name="trade">投资云票</string>
     <string name="find">发现</string>
     <string name="me">我的</string>
     <string name="login_out">退出登录</string>
@@ -15,7 +15,7 @@
     <string name="check_cloud_ticket">审批云票</string>
     <string name="my_cloud_ticket">我的云票</string>
     <string name="tv_loan_record">借款记录</string>
-    <string name="wait_approve">我担保的贷款</string>
+    <string name="wait_approve">审批</string>
     <string name="start_date">承兑日期:</string>
     <string name="tv_accept_data">出票日期:</string>
     <string name="tv_expire_data">到期日期:</string>

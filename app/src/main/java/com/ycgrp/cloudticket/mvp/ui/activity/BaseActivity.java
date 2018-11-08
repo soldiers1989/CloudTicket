@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.ycgrp.cloudticket.R;
 import com.ycgrp.cloudticket.event.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,9 +32,12 @@ public class BaseActivity extends AppCompatActivity {
 
 
     private void initData() {
-//        //沉浸式状态栏
-//        mImmersionBar = ImmersionBar.with(this);
-//        mImmersionBar.init();
+        //沉浸式状态栏
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarColor(R.color.white)
+                .statusBarDarkFont(true)
+                .init();
+
 
     }
 
@@ -43,9 +47,9 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
 
         super.onDestroy();
-//        if (mImmersionBar != null) {
-//            mImmersionBar.destroy();
-//        }
+        if (mImmersionBar != null) {
+            mImmersionBar.destroy();
+        }
     }
 
     public void showTastTips(String tips) {
