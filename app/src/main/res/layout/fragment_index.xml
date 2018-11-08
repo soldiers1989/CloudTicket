@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <!--banner-->
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x240"></com.youth.banner.Banner>
+    <!--分界线-->
+    <View
+        android:id="@+id/line_one"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x15"
+        android:layout_below="@+id/banner"
+        android:background="@color/view_line" />
+    <!--审批云票和发布云票-->
+    <LinearLayout
+        android:id="@+id/line_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_one"
+        android:orientation="horizontal">
+        <!--发起云票-->
+        <RelativeLayout
+            android:id="@+id/rel_start_cloud_ticket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/start_cloud_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/app_image_home_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/start_cloud_ticket"
+                android:layout_centerHorizontal="true"
+                android:text="@string/tv_start_cloud_ticket"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+        <!--审批云票-->
+        <RelativeLayout
+            android:id="@+id/rel_cheack_cloud_ticket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/cheack_cloud_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/app_image_home_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cheack_cloud_ticket"
+                android:layout_centerHorizontal="true"
+                android:text="@string/check_cloud_ticket"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+    </LinearLayout>
+    <!--借款记录-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_two"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/x15">
+        <!--我的云票-->
+        <RelativeLayout
+            android:id="@+id/rel_my_cloud_ticket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/my_cloud_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ig_my_cloud_ticket" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_cloud_ticket"
+                android:layout_centerHorizontal="true"
+                android:text="@string/my_cloud_ticket"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+        <!--借款记录-->
+        <RelativeLayout
+            android:id="@+id/rel_loan_record"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/ig_loan_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/app_image_home_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ig_loan_record"
+                android:layout_centerHorizontal="true"
+                android:text="@string/tv_loan_record"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

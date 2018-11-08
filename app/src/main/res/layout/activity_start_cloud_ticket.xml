@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.ui.activity.StartCloudTicketActivity">
+    <!--ToolBar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:titleMarginStart="@dimen/x150"
+        app:titleTextColor="@color/white">
+        <TextView
+            android:id="@+id/title"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:text="@string/tv_start_cloud_ticket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/x10"/>
+    </android.support.v7.widget.Toolbar>
+
+
+    <!--输入金额-->
+<android.support.design.widget.TextInputLayout
+    android:layout_below="@+id/toolbar"
+    android:id="@+id/layout_input_amount"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/input_amount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50"
+        android:inputType="number"
+        android:hint="请输入发起金额"/>
+</android.support.design.widget.TextInputLayout>
+<!--担保人Id-->
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layout_input_guarantor_id"
+        android:layout_below="@+id/layout_input_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/input_guarantor_id"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x50"
+            android:inputType="number"
+            android:hint="请输入担保人Id"/>
+    </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_start_cloud_ticket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_input_guarantor_id"
+            android:text="@string/tv_start_cloud_ticket"/>
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

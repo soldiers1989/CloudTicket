@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">云票</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="myprefname">xiaomage.xml</string>
+    <!--Tablayout-->
+    <string name="index">首页</string>
+    <string name="trade">云票交易所</string>
+    <string name="find">发现</string>
+    <string name="me">我的</string>
+    <string name="login_out">退出登录</string>
+    <string name="personal_center">个人中心</string>
+    <string name="tv_start_cloud_ticket">发起云票</string>
+    <string name="check_cloud_ticket">审批云票</string>
+    <string name="my_cloud_ticket">我的云票</string>
+    <string name="tv_loan_record">借款记录</string>
+    <string name="wait_approve">我担保的贷款</string>
+    <string name="start_date">承兑日期:</string>
+    <string name="tv_accept_data">出票日期:</string>
+    <string name="tv_expire_data">到期日期:</string>
+    <string name="tv_draw_ticket_data">出票日期:</string>
+    <string name="tv_wait_approve">待审核</string>
+    <string name="tv_holder">持有</string>
+    <string name="tv_borrower">借款人:</string>
+    <string name="tv_rel_out_glod">贷款人:</string>
+    <string name="tv_receipet">收款人:</string>
+    <string name="tv_payment">付款人:</string>
+    <string name="tv_approved">通过</string>
+    <string name="tv_rejected">拒绝</string>
+    <string name="tv_publish">发布</string>
+    <string name="tv_recall">撤回</string>
+    <string name="tv_buy">购买</string>
+    <string name="tv_repayment">还款</string>
+    <string name="tv_start_data_nun">2018-11-03</string>
+    <string name="tv_scan">扫一扫</string>
+    <string name="tv_get_mony">收钱码</string>
+    <string name="please_input_rate">请输入利率</string>
+    <string name="cancle">取消</string>
+    <string name="ok">确定</string>
+    <string name="release_success">发布成功</string>
+    <string name="release_failed">发布失败</string>
+    <string name="already_release">已发布</string>
+    <string name="recall_success">撤回成功</string>
+    <string name="recall_failed">撤回失败</string>
+    <string name="not_get_cloud_ticket">还没有获得云票!</string>
+    <string name="not_loan_record">借款记录为空!</string>
+    <string name="RMB">¥</string>
+</resources>
+

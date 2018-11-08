@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <!--个人中心-->
+    <RelativeLayout
+        android:id="@+id/rel_user_center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x70">
+
+        <!--头像-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/head"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x27"
+            android:layout_marginTop="@dimen/x10"
+            android:src="@drawable/head" />
+        <!--姓名和ID-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/head">
+            <!--姓名-->
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x2"
+                android:text="test"
+                android:textColor="@color/charcoal_grey" />
+            <!--id-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/x2"
+                android:text="ID:20" />
+        </RelativeLayout>
+        <!--个人中心和向右箭头-->
+        <RelativeLayout
+            android:layout_width="@dimen/x100"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+            <!--tv 个人中心-->
+            <TextView
+                android:id="@+id/head_personal_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x5"
+                android:text="@string/personal_center" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/head_personal_center"
+                android:src="@mipmap/center_next" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/rel_user_center"
+        android:background="@color/view_line" />
+    <!--退出登录-->
+    <Button
+        android:id="@+id/btn_login_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginBottom="@dimen/x20"
+        android:background="@drawable/login_out_shape"
+        android:text="@string/login_out"
+        android:textColor="@color/white" />
+</RelativeLayout>

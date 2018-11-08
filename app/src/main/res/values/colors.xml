@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--状态栏-->
+    <color name="colorPrimary">#3fa2e4</color>
+    <color name="colorPrimaryDark">#3fa2e4</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--注册登录-->
+    <color name="primary">#3fa2e4</color>
+    <color name="primary_dark">#3fa2e4</color>
+    <color name="primary_darker">#3fa2e4</color>
+    <color name="accent">#FFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- TabLayout -->
+    <color name="tab_indicator">#d6d6d6</color>
+    <color name="tab_tv_normal">#999999</color>
+    <color name="tab_tv_selected">#45c01a</color>
+    <color name="tab_bg">#fcfcfc</color>
+    <color name="tab_div">#d6d6d6</color>
+
+    <!--个人中心-->
+    <color name="charcoal_grey">#434b4d</color>
+    <color name="view_line">#f5f5f5</color>
+    <color name="view_line_two">#6c6c6c</color>
+    <color name="btn_login_out">#ff751f</color>
+    <!--待审批-->
+    <color name="tv_wait_approve">#3fa2e4</color>
+    <color name="refund_date">#0d2abd</color>
+    <color name="av_indicator_color">#40FFFFFF</color>
+    <color name="tv_money_color">#f77314</color>
+    <color name="tv_money_color_two">#514f4d</color>
+    <color name="tv_wait_approve_two">#f7142b</color>
+    <color name="av_bg_transparent_color">#B3787878</color>
+    <color name="rel_av_bg_transparent_color">#80787878</color>
+    <!--发起云票-->
+    <color name="tv_scan">#707070</color>
+    <!--我的云票-->
+    <color name="tv_alredy_release">#e4610f</color>
+</resources>
