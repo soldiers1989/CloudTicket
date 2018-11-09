@@ -87,6 +87,16 @@ public class IndexFragment extends Fragment  {
      * ImmersionBar
      */
     private ImmersionBar mImmersionBar;
+
+    private String mFrom;
+    public static IndexFragment newInstance(String from){
+        IndexFragment fragment = new IndexFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("from",from);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -97,6 +107,9 @@ public class IndexFragment extends Fragment  {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            mFrom = getArguments().getString("from");
+        }
         // 标记
         isCreated = true;
 //        setTitleVisiable(false);

@@ -44,9 +44,21 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
      * ImmersionBar
      */
     private ImmersionBar mImmersionBar;
+
+    private String mFrom;
+    public static MeFragment newInstance(String from){
+        MeFragment fragment = new MeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("from",from);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            mFrom = getArguments().getString("from");
+        }
         // 标记
         isCreated = true;
         mImmersionBar = ImmersionBar.with(this)

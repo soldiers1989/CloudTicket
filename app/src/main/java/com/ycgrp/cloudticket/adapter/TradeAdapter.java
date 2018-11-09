@@ -68,7 +68,12 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
         //设置折扣价
         String interest_rate;
         for (TradeBean.IncludedBean ic : mTradeBean.getIncluded()) {
-            if (ic.getId().equals(mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId())) {
+
+            if (ic.getId()!=null&&mTradeBean.getData()!=null&&mTradeBean.getData().get(position).getRelationships()!=null&&
+                    mTradeBean.getData().get(position).getRelationships().getRelease()!=null&&
+                    mTradeBean.getData().get(position).getRelationships().getRelease().getData()!=null&&
+                    mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId()!=null&&
+                    ic.getId().equals(mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId())) {
                 interest_rate = ic.getAttributes().getInterest_rate();
                 holder.current_prince.setText("¥" + holder.getCurrentPrice(date_of_issue, maturity_date, interest_rate) + "");
             }

@@ -98,9 +98,23 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
      * ImmersionBar
      */
     private ImmersionBar mImmersionBar;
+
+    private String mFrom;
+    public static TradeFragment newInstance(String from){
+
+        TradeFragment fragment = new TradeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("from",from);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            mFrom = getArguments().getString("from");
+        }
         mImmersionBar = ImmersionBar.with(this)
           .statusBarColor(R.color.white)
         .statusBarDarkFont(true);
