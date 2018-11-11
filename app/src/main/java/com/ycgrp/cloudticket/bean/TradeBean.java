@@ -29,10 +29,10 @@ public class TradeBean {
 
     public static class DataBeanXX {
         /**
-         * id : 4
+         * id : 42
          * type : bill
-         * attributes : {"amount":"555.0","date_of_issue":"2018-11-05","maturity_date":"2020-01-01","status":"ready_for_sale"}
-         * relationships : {"loan":{"data":{"id":"61","type":"loan"}},"release":{"data":{"id":"20","type":"release"}}}
+         * attributes : {"amount":"2.0","date_of_issue":"2018-11-10","maturity_date":"2018-11-10","status":"ready_for_sale"}
+         * relationships : {"loan":{"data":{"id":"112","type":"loan"}},"releases":{"data":[{"id":"61","type":"release"}]}}
          */
 
         private String id;
@@ -74,9 +74,9 @@ public class TradeBean {
 
         public static class AttributesBean {
             /**
-             * amount : 555.0
-             * date_of_issue : 2018-11-05
-             * maturity_date : 2020-01-01
+             * amount : 2.0
+             * date_of_issue : 2018-11-10
+             * maturity_date : 2018-11-10
              * status : ready_for_sale
              */
 
@@ -120,12 +120,12 @@ public class TradeBean {
 
         public static class RelationshipsBean {
             /**
-             * loan : {"data":{"id":"61","type":"loan"}}
-             * release : {"data":{"id":"20","type":"release"}}
+             * loan : {"data":{"id":"112","type":"loan"}}
+             * releases : {"data":[{"id":"61","type":"release"}]}
              */
 
             private LoanBean loan;
-            private ReleaseBean release;
+            private ReleasesBean releases;
 
             public LoanBean getLoan() {
                 return loan;
@@ -135,17 +135,17 @@ public class TradeBean {
                 this.loan = loan;
             }
 
-            public ReleaseBean getRelease() {
-                return release;
+            public ReleasesBean getReleases() {
+                return releases;
             }
 
-            public void setRelease(ReleaseBean release) {
-                this.release = release;
+            public void setReleases(ReleasesBean releases) {
+                this.releases = releases;
             }
 
             public static class LoanBean {
                 /**
-                 * data : {"id":"61","type":"loan"}
+                 * data : {"id":"112","type":"loan"}
                  */
 
                 private DataBean data;
@@ -160,7 +160,7 @@ public class TradeBean {
 
                 public static class DataBean {
                     /**
-                     * id : 61
+                     * id : 112
                      * type : loan
                      */
 
@@ -185,24 +185,20 @@ public class TradeBean {
                 }
             }
 
-            public static class ReleaseBean {
-                /**
-                 * data : {"id":"20","type":"release"}
-                 */
+            public static class ReleasesBean {
+                private List<DataBeanX> data;
 
-                private DataBeanX data;
-
-                public DataBeanX getData() {
+                public List<DataBeanX> getData() {
                     return data;
                 }
 
-                public void setData(DataBeanX data) {
+                public void setData(List<DataBeanX> data) {
                     this.data = data;
                 }
 
                 public static class DataBeanX {
                     /**
-                     * id : 20
+                     * id : 61
                      * type : release
                      */
 
@@ -231,10 +227,10 @@ public class TradeBean {
 
     public static class IncludedBean {
         /**
-         * id : 61
+         * id : 112
          * type : loan
-         * attributes : {"amount":"555.0","date_of_issue":"2018-11-05","maturity_date":"2020-01-01","status":"approved"}
-         * relationships : {"loanee":{"data":{"id":"3","type":"user"}},"guarantor":{"data":{"id":"4","type":"user"}},"bill":{"data":{"id":"4","type":"bill"}}}
+         * attributes : {"amount":"2.0","date_of_issue":"2018-11-10","maturity_date":"2018-11-10","status":"approved"}
+         * relationships : {"loanee":{"data":{"id":"3","type":"user"}},"guarantor":{"data":{"id":"4","type":"user"}},"bill":{"data":{"id":"42","type":"bill"}}}
          */
 
         private String id;
@@ -276,28 +272,16 @@ public class TradeBean {
 
         public static class AttributesBeanX {
             /**
-             * amount : 555.0
-             * date_of_issue : 2018-11-05
-             * maturity_date : 2020-01-01
+             * amount : 2.0
+             * date_of_issue : 2018-11-10
+             * maturity_date : 2018-11-10
              * status : approved
-             *  "interest_rate": "0.03"
-             *  name": "erres"
              */
 
             private String amount;
             private String date_of_issue;
             private String maturity_date;
             private String status;
-            private  String interest_rate;
-            private String name;
-
-            public String getName() {
-                return name;
-            }
-
-            public String getInterest_rate() {
-                return interest_rate;
-            }
 
             public String getAmount() {
                 return amount;
@@ -336,19 +320,12 @@ public class TradeBean {
             /**
              * loanee : {"data":{"id":"3","type":"user"}}
              * guarantor : {"data":{"id":"4","type":"user"}}
-             * bill : {"data":{"id":"4","type":"bill"}}
+             * bill : {"data":{"id":"42","type":"bill"}}
              */
 
             private LoaneeBean loanee;
             private GuarantorBean guarantor;
             private BillBean bill;
-            /**
-             * user : {"data":{"id":"37","type":"user"}}
-             */
-
-            private UserBean user;
-
-
 
             public LoaneeBean getLoanee() {
                 return loanee;
@@ -373,15 +350,6 @@ public class TradeBean {
             public void setBill(BillBean bill) {
                 this.bill = bill;
             }
-
-            public UserBean getUser() {
-                return user;
-            }
-
-            public void setUser(UserBean user) {
-                this.user = user;
-            }
-
 
             public static class LoaneeBean {
                 /**
@@ -424,7 +392,6 @@ public class TradeBean {
                     }
                 }
             }
-
 
             public static class GuarantorBean {
                 /**
@@ -470,7 +437,7 @@ public class TradeBean {
 
             public static class BillBean {
                 /**
-                 * data : {"id":"4","type":"bill"}
+                 * data : {"id":"42","type":"bill"}
                  */
 
                 private DataBeanXXXXX data;
@@ -485,7 +452,7 @@ public class TradeBean {
 
                 public static class DataBeanXXXXX {
                     /**
-                     * id : 4
+                     * id : 42
                      * type : bill
                      */
 
@@ -507,22 +474,6 @@ public class TradeBean {
                     public void setType(String type) {
                         this.type = type;
                     }
-                }
-            }
-
-            public static class UserBean {
-                /**
-                 * data : {"id":"37","type":"user"}
-                 */
-
-                private BillBean.DataBeanXXXXX data;
-
-                public BillBean.DataBeanXXXXX getData() {
-                    return data;
-                }
-
-                public void setData(BillBean.DataBeanXXXXX data) {
-                    this.data = data;
                 }
             }
         }

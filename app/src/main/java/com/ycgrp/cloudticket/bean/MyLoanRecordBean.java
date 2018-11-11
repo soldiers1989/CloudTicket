@@ -80,7 +80,7 @@ public class MyLoanRecordBean {
 
             private String amount;
             private String date_of_issue;
-            private Object maturity_date;
+            private String maturity_date;
             private String status;
 
             public String getAmount() {
@@ -99,11 +99,11 @@ public class MyLoanRecordBean {
                 this.date_of_issue = date_of_issue;
             }
 
-            public Object getMaturity_date() {
+            public String getMaturity_date() {
                 return maturity_date;
             }
 
-            public void setMaturity_date(Object maturity_date) {
+            public void setMaturity_date(String maturity_date) {
                 this.maturity_date = maturity_date;
             }
 

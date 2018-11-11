@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/charcoal_grey"
-                android:text="@string/tv_start_data_nun"/>
+                android:text=""/>
             <!--待审核-->
             <TextView
                 android:id="@+id/tv_wait_approve"
@@ -51,13 +51,13 @@
                 android:layout_below="@+id/tv_start_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_wait_approve"/>
+                android:text=""/>
             <!--金额-->
             <TextView
                 android:id="@+id/tv_apply_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$625625"
+                android:text=""
                 android:textColor="@color/tv_money_color"
                 android:textSize="@dimen/x20"
                 android:layout_centerVertical="true"
@@ -79,12 +79,13 @@
         android:id="@+id/rel_borrower_and_out_glod"
         android:layout_below="@+id/line_two"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/x50">
+
         <!--借款人-->
         <RelativeLayout
             android:id="@+id/rel_borrower"
             android:layout_marginLeft="@dimen/x5"
-            android:layout_marginTop="@dimen/x10"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
@@ -97,32 +98,7 @@
                 android:id="@+id/tv_set_borrower"
                 android:layout_toRightOf="@+id/tv_borrower"
                 android:layout_marginLeft="@dimen/x2"
-                android:text="赵四"
-                android:textColor="@color/charcoal_grey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-        <!--贷款人-->
-        <!--借款人-->
-        <RelativeLayout
-            android:id="@+id/rel_out_glod"
-            android:layout_marginLeft="@dimen/x5"
-            android:layout_marginTop="@dimen/x10"
-            android:layout_below="@+id/rel_borrower"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="@dimen/x7"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_rel_out_glod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/charcoal_grey"
-                android:text="@string/tv_rel_out_glod"/>
-            <TextView
-                android:id="@+id/set_tv_rel_out_glod"
-                android:layout_marginLeft="@dimen/x2"
-                android:text="平台"
-                android:layout_toRightOf="@+id/tv_rel_out_glod"
+                android:text=""
                 android:textColor="@color/charcoal_grey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -137,23 +113,25 @@
                 android:id="@+id/tv_approve"
                 android:padding="@dimen/x5"
                 android:background="@drawable/tv_approv_reject_shape"
-                android:layout_width="@dimen/x60"
+                android:layout_width="wrap_content"
                 android:textColor="@color/charcoal_grey"
                 android:gravity="center"
+                android:singleLine="true"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_approved"/>
+                android:text=""/>
             <TextView
                 android:id="@+id/tv_reject"
                 android:padding="@dimen/x5"
                 android:textColor="@color/charcoal_grey"
                 android:background="@drawable/tv_approv_reject_shape"
                 android:layout_marginLeft="@dimen/x5"
+                android:singleLine="true"
                 android:layout_toRightOf="@+id/tv_approve"
                 android:layout_marginRight="@dimen/x15"
-                android:layout_width="@dimen/x60"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/tv_rejected"/>
+                android:text=""/>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

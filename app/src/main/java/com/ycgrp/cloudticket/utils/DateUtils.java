@@ -3,6 +3,7 @@ package com.ycgrp.cloudticket.utils;
 
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,29 @@ public class DateUtils {
         return simpleDateFormat.format(date);
     }
 
+    /**
+     *
+     * @param front 第一个日期
+     * @param last  第二个日期
+     * @return true 第二个日期在第一个日期前面，逾期
+     *
+     */
+    public  static  boolean compareDate(String front,String last){
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date  dateOne = simpleDateFormat.parse(front);
+            Date dateTwo=simpleDateFormat.parse(last);
+            if (dateTwo.before(dateOne)){
+                return true;
+            }else {
+                return  false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+       return false;
+    }
     /**
      * 格式转换
      * @param date

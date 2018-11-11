@@ -1,7 +1,9 @@
 package com.ycgrp.cloudticket.api;
 
 
+import com.ycgrp.cloudticket.bean.AccountBlanceBean;
 import com.ycgrp.cloudticket.bean.ApproveordrejetBean;
+import com.ycgrp.cloudticket.bean.CloudTticketDetailsBean;
 import com.ycgrp.cloudticket.bean.GetRegisterInfoBean;
 import com.ycgrp.cloudticket.bean.LoginResponseBean;
 import com.ycgrp.cloudticket.bean.MyInfoBean;
@@ -9,17 +11,16 @@ import com.ycgrp.cloudticket.bean.MyLoanRecordBean;
 import com.ycgrp.cloudticket.bean.ReleaseCloudBean;
 import com.ycgrp.cloudticket.bean.StartCloudTicketBean;
 import com.ycgrp.cloudticket.bean.TradeBean;
+import com.ycgrp.cloudticket.bean.UserInfoBean;
 import com.ycgrp.cloudticket.bean.WaitApproveBean;
 import com.ycgrp.cloudticket.event.MyCloudTicketBean;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import okhttp3.ResponseBody;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -106,6 +107,14 @@ public interface NetAPI {
     Observable<MyInfoBean> getMyInfo();
 
     /**
+     *
+     * @param id 用户id
+     * @return  返回用户信息
+     */
+    @GET(" /users/{id}")
+    Observable<UserInfoBean>getUserInfo(@Path("id")String id);
+
+    /**
      * 发布云票
      * @param bill_id 云票id
      * @param interest_rate 利率
@@ -139,4 +148,28 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST("/endorsements")
     Observable<ResponseBody>buyCloudTicket(@Field("endorsement[release_id]")String release_id );
+
+    /**
+     * 获取云票详情
+     * @return
+     */
+    @GET("/bills/{id}")
+    Observable<CloudTticketDetailsBean>getCloudTicketDetial(@Path("id")String id);
+
+    /**
+     * 获取账户明细
+     * @return
+     */
+    @GET("/account")
+    Observable<AccountBlanceBean>getAccountBlance();
+
+    /**
+     * 实名认证
+     * @param id_number 身份证号码
+     * @param address 地址
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/certifications")
+    Observable<ResponseBody>verified(@Field("user_profile[id_number]")String id_number,@Field("user_profile[address]")String address);
 }

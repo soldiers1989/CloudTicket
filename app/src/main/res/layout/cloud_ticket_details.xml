@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <!--买入价-->
+    <RelativeLayout
+        android:id="@+id/rel_buy_price"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/buy_price_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="买入价" />
+
+        <TextView
+            android:id="@+id/buy_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="2050.0" />
+    </RelativeLayout>
+    <!--第一条线-->
+    <View
+        android:id="@+id/line_one"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_buy_price"
+        android:background="@color/view_line"/>
+    <!--利率-->
+    <RelativeLayout
+        android:id="@+id/rel_buy_rate_txt"
+        android:layout_below="@+id/rel_buy_price"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/buy_rate_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="利率" />
+
+        <TextView
+            android:id="@+id/buy_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="0.02%" />
+    </RelativeLayout>
+    <!--第二条线-->
+    <View
+        android:id="@+id/line_two"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_buy_rate_txt"
+        android:background="@color/view_line"/>
+
+
+    <!--农户-->
+    <RelativeLayout
+        android:id="@+id/rel_buy_farmer"
+        android:layout_below="@+id/rel_buy_rate_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/farmer_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="农户" />
+
+        <TextView
+            android:id="@+id/farmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="赵四" />
+    </RelativeLayout>
+    <!--第三条线-->
+    <View
+        android:id="@+id/line_three"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_buy_farmer"
+        android:background="@color/view_line"/>
+    <!--零售商-->
+    <RelativeLayout
+        android:id="@+id/rel_retailer"
+        android:layout_below="@+id/rel_buy_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/retailer_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="零售商" />
+
+        <TextView
+            android:id="@+id/retailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="张建国" />
+    </RelativeLayout>
+    <!--第三条线-->
+    <View
+        android:id="@+id/line_four"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_retailer"
+        android:background="@color/view_line"/>
+    <!--持有人-->
+    <RelativeLayout
+        android:id="@+id/rel_holder"
+        android:layout_below="@+id/rel_retailer"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/holder_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="持有人" />
+
+        <TextView
+            android:id="@+id/holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="黄新明" />
+    </RelativeLayout>
+    <!--第三条线-->
+    <View
+        android:id="@+id/line_five"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_holder"
+        android:background="@color/view_line"/>
+    <!--到期日期-->
+    <RelativeLayout
+        android:id="@+id/rel_date_of_issue"
+        android:layout_below="@+id/rel_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/date_of_issue_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="签发日期" />
+
+        <TextView
+            android:id="@+id/date_of_issue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="2018年12月3日" />
+    </RelativeLayout>
+    <!--第三条线-->
+    <View
+        android:id="@+id/line_six"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_date_of_issue"
+        android:background="@color/view_line"/>
+    <!--到期日期-->
+    <RelativeLayout
+        android:id="@+id/rel_date_of_maturity"
+        android:layout_below="@+id/rel_date_of_issue"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x50">
+        <TextView
+            android:id="@+id/date_of_maturity_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x15"
+            android:layout_marginLeft="@dimen/x10"
+            android:text="到期" />
+
+        <TextView
+            android:id="@+id/date_of_maturity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:text="2019年12月3日" />
+    </RelativeLayout>
+    <!--第三条线-->
+    <View
+        android:id="@+id/line_seven"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_below="@+id/rel_date_of_maturity"
+        android:background="@color/view_line"/>
+    <!--按钮-->
+    <RelativeLayout
+        android:layout_below="@+id/line_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/x5">
+        <!--第一个按钮-->
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bnv_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+          <Button
+              android:id="@+id/btn_one"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="卖出"/>
+        </android.support.design.widget.BottomNavigationView>
+        <!--第二个按钮-->
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bnv_two"
+            android:layout_toRightOf="@+id/bnv_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="贴现"/>
+        </android.support.design.widget.BottomNavigationView>
+    </RelativeLayout>
+
+</RelativeLayout>

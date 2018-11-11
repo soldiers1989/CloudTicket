@@ -4,10 +4,12 @@ package com.ycgrp.cloudticket.adapter;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +17,9 @@ import com.ycgrp.cloudticket.R;
 import com.ycgrp.cloudticket.api.BaseCallBackListener;
 import com.ycgrp.cloudticket.api.NetServer;
 import com.ycgrp.cloudticket.bean.TradeBean;
+import com.ycgrp.cloudticket.bean.UserInfoBean;
 import com.ycgrp.cloudticket.mvp.view.BuySuccess;
+import com.ycgrp.cloudticket.mvp.view.GetDetail;
 import com.ycgrp.cloudticket.utils.DateUtils;
 import com.ycgrp.cloudticket.utils.L;
 
@@ -35,9 +39,10 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
     private Context mContext;
     private TradeBean mTradeBean;
     private BuySuccess mBuySuccess;
-
-    public TradeAdapter(Context context, TradeBean tradeBean, BuySuccess buySuccess) {
+    private GetDetail mGetDetail;//获取云票详情
+    public TradeAdapter(Context context, TradeBean tradeBean, BuySuccess buySuccess,GetDetail getDetail) {
         mContext = context;
+        mGetDetail=getDetail;
         mLayoutInflater = LayoutInflater.from(mContext);
         this.mBuySuccess = buySuccess;
         setTradeData(tradeBean);
@@ -57,7 +62,8 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TradeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final TradeViewHolder holder, int position) {
+
         holder.tv_draw_ticket_data_num.setText(mTradeBean.getData().get(position).getAttributes().getDate_of_issue());
         holder.tv_accept_num.setText(mTradeBean.getData().get(position).getAttributes().getDate_of_issue());
         holder.tv_expire_num.setText(mTradeBean.getData().get(position).getAttributes().getMaturity_date());
@@ -65,47 +71,44 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
         String date_of_issue = mTradeBean.getData().get(position).getAttributes().getDate_of_issue();
         String maturity_date = mTradeBean.getData().get(position).getAttributes().getMaturity_date();
 
-        //设置折扣价
-        String interest_rate;
-        for (TradeBean.IncludedBean ic : mTradeBean.getIncluded()) {
-
-            if (ic.getId()!=null&&mTradeBean.getData()!=null&&mTradeBean.getData().get(position).getRelationships()!=null&&
-                    mTradeBean.getData().get(position).getRelationships().getRelease()!=null&&
-                    mTradeBean.getData().get(position).getRelationships().getRelease().getData()!=null&&
-                    mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId()!=null&&
-                    ic.getId().equals(mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId())) {
-                interest_rate = ic.getAttributes().getInterest_rate();
-                holder.current_prince.setText("¥" + holder.getCurrentPrice(date_of_issue, maturity_date, interest_rate) + "");
-            }
-        }
+//        //设置折扣价
+//        String interest_rate;
+//        for (TradeBean.IncludedBean ic : mTradeBean.getIncluded()) {
+//
+//            if (mTradeBean.getData().get(position).getRelationships().getReleases().getData().get(mTradeBean.getData().get(position).getRelationships().getReleases().getData().get()-1).getId().equals(ic.getId())){
+//                interest_rate = ic.getRelationships().getBill().getData().getId();
+//                holder.current_prince.setText("¥" + holder.getCurrentPrice(date_of_issue, maturity_date, interest_rate) + "");
+//            }
+//
+//        }
         //设置发布者
         //云票发布
-        String release_id;
-        if (mTradeBean.getData()!=null&&mTradeBean.getData().get(position).getRelationships()!=null
-                &&mTradeBean.getData().get(position).getRelationships().getRelease()!=null&&
-                mTradeBean.getData().get(position).getRelationships().getRelease().getData()!=null&&
-                mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId()!=null){
 
-            //获取发布者id
-            release_id = mTradeBean.getData().get(position).getRelationships().getRelease().getData().getId();
-            L.e("release_id---" + release_id);
             for (TradeBean.IncludedBean ic : mTradeBean.getIncluded()) {
 
-                if (ic.getId().equals(release_id) && ic.getRelationships() != null && ic.getRelationships().getUser() != null && ic.getRelationships().getUser().getData() != null) {
-                    String publisher_id = ic.getRelationships().getUser().getData().getId();
-                    //获取发布者姓名
-                    L.e("publisher_id---" + publisher_id);
-                    for (TradeBean.IncludedBean ic_two : mTradeBean.getIncluded()) {
-                        if (ic_two.getId().equals(publisher_id) && ic_two.getAttributes() != null && ic_two.getAttributes().getName() != null) {
-                            String publisher_name = ic_two.getAttributes().getName();
-                            L.e("publisher_name---" + publisher_name);
-                            holder.set_published.setText(publisher_name);
 
-                        }
+
+                    if (ic.getRelationships().getGuarantor()!=null){
+
+                        String publisher_id = ic.getRelationships().getGuarantor().getData().getId();
+                        //获取发布者姓名
+                        L.e("publisher_id---" + publisher_id);
+                        NetServer.getInstance().getUserInfo(publisher_id, new BaseCallBackListener<UserInfoBean>() {
+                            @Override
+                            public void onSuccess(UserInfoBean result) {
+                                super.onSuccess(result);
+                                holder.set_published.setText(result.getData().getAttributes().getName());
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                super.onError(e);
+                            }
+                        });
                     }
-                }
+
+
             }
-        }
 
 
 
@@ -133,11 +136,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
          */
         @BindView(R.id.tv_value_number)
         TextView tv_value_number;
-        /**
-         * 购买
-         */
-        @BindView(R.id.tv_buy)
-        TextView tv_buy;
+
         /**
          * 现价
          */
@@ -154,6 +153,11 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
          */
         @BindView(R.id.tv_accept_num)
         TextView tv_accept_num;
+        /**
+         * 云票item
+         */
+        @BindView(R.id.item_cloudTicket)
+        CardView item_cloudTicket;
 
         public TradeViewHolder(View itemView) {
             super(itemView);
@@ -162,32 +166,12 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
             tv_value_number.getPaint().setAntiAlias(true);//抗锯齿
         }
 
-
-        @OnClick(R.id.tv_buy)
-        public void buy() {
-            if (mTradeBean.getData()!=null&&mTradeBean.getData().get(getPosition()).getRelationships()!=null&&mTradeBean.getData().get(getPosition()).getRelationships().getRelease()!=null&&mTradeBean.getData().get(getPosition()).getRelationships().getRelease().getData()!=null&&mTradeBean.getData().get(getPosition()).getRelationships().getRelease().getData().getId()!=null){
-
-                NetServer.getInstance().buyCloudTicket(mTradeBean.getData().get(getPosition()).getRelationships().getRelease().getData().getId(), new BaseCallBackListener<ResponseBody>() {
-                    @Override
-                    public void onSuccess(ResponseBody result) {
-                        Toast.makeText(mContext, "购买成功", Toast.LENGTH_SHORT).show();
-                        mBuySuccess.buySuccess();
-                        super.onSuccess(result);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        super.onComplete();
-                    }
-                });
-            }
-
+        @OnClick(R.id.item_cloudTicket)
+        public void getDetail(){
+            mGetDetail.getDetail(mTradeBean.getData().get(getPosition()).getId(),mTradeBean.getData().get(getPosition()).getRelationships().getReleases().getData().get(mTradeBean.getData().get(getPosition()).getRelationships().getReleases().getData().size()-1).getId());
         }
+
+
 
 
         /**

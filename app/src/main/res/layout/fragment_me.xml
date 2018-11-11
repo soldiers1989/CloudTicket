@@ -2,85 +2,331 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
     <!--个人中心-->
     <RelativeLayout
         android:id="@+id/rel_user_center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x70">
-
-        <!--头像-->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/head"
-            android:layout_width="@dimen/x50"
-            android:layout_height="@dimen/x50"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/x27"
-            android:layout_marginTop="@dimen/x10"
-            android:src="@drawable/head" />
-        <!--姓名和ID-->
+        android:layout_height="@dimen/x200"
+        android:background="@color/white">
+<!--绿色部分-->
         <RelativeLayout
+            android:id="@+id/rel_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x120"
+            android:background="@color/colorPrimary">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x70"
+                android:layout_centerVertical="true">
+                <!--头像-->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/head"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/x50"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/x27"
+                    android:layout_marginTop="@dimen/x10"
+                    android:src="@drawable/head" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/head"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="黄新明" />
+
+                    <TextView
+                        android:id="@+id/phoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="13812345678" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <!--<可用余额累计收益-->
+        <LinearLayout
+            android:id="@+id/rel_available_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          android:layout_below="@+id/rel_one"
+            android:orientation="horizontal"
+            android:layout_marginTop="-20dp"
+            >
+            <!--可用余额-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/available_balance"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/x80"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_marginRight="@dimen/x20"
+                app:cardCornerRadius="@dimen/x5"
+                app:cardBackgroundColor="@color/white"
+                android:layout_weight="1"
+                android:layout_marginBottom="@dimen/x5"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+                        <TextView
+                            android:id="@+id/tv_avaiavle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="可用余额"/>
+                        <TextView
+                            android:id="@+id/tv_avaiavle_num"
+                            android:layout_marginTop="@dimen/x10"
+                            android:layout_below="@+id/tv_avaiavle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1024"/>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+            <!--累计收益-->
+            <android.support.v7.widget.CardView
+                android:layout_toRightOf="@+id/available_balance"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/x80"
+                android:layout_marginRight="@dimen/x20"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/x5"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginBottom="@dimen/x5"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+                        <TextView
+                            android:id="@+id/cumulative_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="累计收益"/>
+                        <TextView
+                            android:id="@+id/tv_cumulative_income_num"
+                            android:layout_below="@+id/cumulative_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/x10"
+                            android:text="1024"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+<!--总资产-->
+    <RelativeLayout
+        android:id="@+id/rel_assets"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50"
+        android:layout_below="@+id/rel_user_center">
+        <android.support.v7.widget.CardView
+            android:id="@+id/icon_one"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            app:cardCornerRadius="@dimen/x1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            app:cardBackgroundColor="#e36a24">
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_assets"
+            android:layout_toRightOf="@+id/icon_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/head">
-            <!--姓名-->
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x2"
-                android:text="test"
-                android:textColor="@color/charcoal_grey" />
-            <!--id-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_name"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/x2"
-                android:text="ID:20" />
-        </RelativeLayout>
-        <!--个人中心和向右箭头-->
-        <RelativeLayout
-            android:layout_width="@dimen/x100"
-            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="总资产"/>
+        <ImageView
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
-            <!--tv 个人中心-->
-            <TextView
-                android:id="@+id/head_personal_center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/x5"
-                android:text="@string/personal_center" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/head_personal_center"
-                android:src="@mipmap/center_next" />
-        </RelativeLayout>
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/acorn_center_next"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
-
     <View
+        android:layout_below="@+id/rel_assets"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/rel_user_center"
         android:background="@color/view_line" />
-    <!--退出登录-->
+    <!--账户明细-->
+    <RelativeLayout
+        android:id="@+id/rel_account_details"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50"
+        android:layout_below="@+id/rel_assets">
+        <android.support.v7.widget.CardView
+            android:id="@+id/icon_two"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            app:cardCornerRadius="@dimen/x1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            app:cardBackgroundColor="#d0a525">
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_account_details"
+            android:layout_toRightOf="@+id/icon_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="账户明细"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/acorn_center_next"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_below="@+id/rel_account_details"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/view_line" />
+    <!--银行卡-->
+    <RelativeLayout
+        android:id="@+id/rel_bank_card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50"
+        android:layout_below="@+id/rel_account_details">
+        <android.support.v7.widget.CardView
+            android:id="@+id/icon_three"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            app:cardCornerRadius="@dimen/x1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            app:cardBackgroundColor="#25a0d0">
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_bank_card"
+            android:layout_toRightOf="@+id/icon_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="银行卡"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/acorn_center_next"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_below="@+id/rel_bank_card"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/view_line" />
+    <!--可用额度-->
+    <RelativeLayout
+        android:id="@+id/rel_available_credit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50"
+        android:layout_below="@+id/rel_bank_card">
+        <android.support.v7.widget.CardView
+            android:id="@+id/icon_four"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            app:cardCornerRadius="@dimen/x1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            app:cardBackgroundColor="#44d025">
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_available_credit"
+            android:layout_toRightOf="@+id/icon_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="可用额度"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/acorn_center_next"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_below="@+id/rel_available_credit"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/view_line" />
+    <!--设置-->
+    <RelativeLayout
+        android:id="@+id/rel_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x50"
+        android:layout_below="@+id/rel_available_credit">
+        <android.support.v7.widget.CardView
+            android:id="@+id/icon_five"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            app:cardCornerRadius="@dimen/x1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            app:cardBackgroundColor="#2575d0">
+        </android.support.v7.widget.CardView>
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_toRightOf="@+id/icon_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x5"
+            android:text="设置"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/acorn_center_next"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_below="@+id/rel_setting"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/view_line" />
     <Button
         android:id="@+id/btn_login_out"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/x20"
-        android:layout_marginRight="@dimen/x20"
-        android:layout_marginBottom="@dimen/x20"
-        android:background="@drawable/login_out_shape"
-        android:text="@string/login_out"
-        android:textColor="@color/white" />
+        android:text="退出登录"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

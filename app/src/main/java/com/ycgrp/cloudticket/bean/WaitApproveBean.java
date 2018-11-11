@@ -8,14 +8,14 @@ import java.util.List;
 public class WaitApproveBean {
 
 
-    private List<DataBeanXX> data;
+    private List<DataBeanXXX> data;
     private List<IncludedBean> included;
 
-    public List<DataBeanXX> getData() {
+    public List<DataBeanXXX> getData() {
         return data;
     }
 
-    public void setData(List<DataBeanXX> data) {
+    public void setData(List<DataBeanXXX> data) {
         this.data = data;
     }
 
@@ -27,12 +27,12 @@ public class WaitApproveBean {
         this.included = included;
     }
 
-    public static class DataBeanXX {
+    public static class DataBeanXXX {
         /**
-         * id : 421
+         * id : 111
          * type : loan
-         * attributes : {"amount":"10000.0","date_of_issue":"2018-11-05","maturity_date":null,"status":"waiting_for_review"}
-         * relationships : {"loanee":{"data":{"id":"1047","type":"user"}},"guarantor":{"data":{"id":"1046","type":"user"}},"bill":{"data":null}}
+         * attributes : {"amount":"1.0","date_of_issue":"2018-11-10","maturity_date":"2018-12-01","status":"approved"}
+         * relationships : {"loanee":{"data":{"id":"3","type":"user"}},"guarantor":{"data":{"id":"4","type":"user"}},"bill":{"data":{"id":"41","type":"bill"}}}
          */
 
         private String id;
@@ -74,15 +74,15 @@ public class WaitApproveBean {
 
         public static class AttributesBean {
             /**
-             * amount : 10000.0
-             * date_of_issue : 2018-11-05
-             * maturity_date : null
-             * status : waiting_for_review
+             * amount : 1.0
+             * date_of_issue : 2018-11-10
+             * maturity_date : 2018-12-01
+             * status : approved
              */
 
             private String amount;
             private String date_of_issue;
-            private Object maturity_date;
+            private String maturity_date;
             private String status;
 
             public String getAmount() {
@@ -101,11 +101,11 @@ public class WaitApproveBean {
                 this.date_of_issue = date_of_issue;
             }
 
-            public Object getMaturity_date() {
+            public String getMaturity_date() {
                 return maturity_date;
             }
 
-            public void setMaturity_date(Object maturity_date) {
+            public void setMaturity_date(String maturity_date) {
                 this.maturity_date = maturity_date;
             }
 
@@ -120,9 +120,9 @@ public class WaitApproveBean {
 
         public static class RelationshipsBean {
             /**
-             * loanee : {"data":{"id":"1047","type":"user"}}
-             * guarantor : {"data":{"id":"1046","type":"user"}}
-             * bill : {"data":null}
+             * loanee : {"data":{"id":"3","type":"user"}}
+             * guarantor : {"data":{"id":"4","type":"user"}}
+             * bill : {"data":{"id":"41","type":"bill"}}
              */
 
             private LoaneeBean loanee;
@@ -155,7 +155,7 @@ public class WaitApproveBean {
 
             public static class LoaneeBean {
                 /**
-                 * data : {"id":"1047","type":"user"}
+                 * data : {"id":"3","type":"user"}
                  */
 
                 private DataBean data;
@@ -170,7 +170,7 @@ public class WaitApproveBean {
 
                 public static class DataBean {
                     /**
-                     * id : 1047
+                     * id : 3
                      * type : user
                      */
 
@@ -197,7 +197,7 @@ public class WaitApproveBean {
 
             public static class GuarantorBean {
                 /**
-                 * data : {"id":"1046","type":"user"}
+                 * data : {"id":"4","type":"user"}
                  */
 
                 private DataBeanX data;
@@ -212,7 +212,7 @@ public class WaitApproveBean {
 
                 public static class DataBeanX {
                     /**
-                     * id : 1046
+                     * id : 4
                      * type : user
                      */
 
@@ -239,17 +239,43 @@ public class WaitApproveBean {
 
             public static class BillBean {
                 /**
-                 * data : null
+                 * data : {"id":"41","type":"bill"}
                  */
 
-                private Object data;
+                private DataBeanXX data;
 
-                public Object getData() {
+                public DataBeanXX getData() {
                     return data;
                 }
 
-                public void setData(Object data) {
+                public void setData(DataBeanXX data) {
                     this.data = data;
+                }
+
+                public static class DataBeanXX {
+                    /**
+                     * id : 41
+                     * type : bill
+                     */
+
+                    private String id;
+                    private String type;
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
                 }
             }
         }
@@ -257,14 +283,16 @@ public class WaitApproveBean {
 
     public static class IncludedBean {
         /**
-         * id : 1046
-         * type : user
-         * attributes : {"name":"张建国"}
+         * id : 41
+         * type : bill
+         * attributes : {"amount":"1.0","date_of_issue":"2018-11-10","maturity_date":"2018-12-01","status":"held"}
+         * relationships : {"loan":{"data":{"id":"111","type":"loan"}},"releases":{"data":[{"id":"60","type":"release"},{"id":"62","type":"release"},{"id":"63","type":"release"}]}}
          */
 
         private String id;
         private String type;
         private AttributesBeanX attributes;
+        private RelationshipsBeanX relationships;
 
         public String getId() {
             return id;
@@ -290,19 +318,169 @@ public class WaitApproveBean {
             this.attributes = attributes;
         }
 
+        public RelationshipsBeanX getRelationships() {
+            return relationships;
+        }
+
+        public void setRelationships(RelationshipsBeanX relationships) {
+            this.relationships = relationships;
+        }
+
         public static class AttributesBeanX {
             /**
-             * name : 张建国
+             * amount : 1.0
+             * date_of_issue : 2018-11-10
+             * maturity_date : 2018-12-01
+             * status : held
+             * name:张三
              */
 
+            private String amount;
+            private String date_of_issue;
+            private String maturity_date;
+            private String status;
             private String name;
 
             public String getName() {
                 return name;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public String getAmount() {
+                return amount;
+            }
+
+            public void setAmount(String amount) {
+                this.amount = amount;
+            }
+
+            public String getDate_of_issue() {
+                return date_of_issue;
+            }
+
+            public void setDate_of_issue(String date_of_issue) {
+                this.date_of_issue = date_of_issue;
+            }
+
+            public String getMaturity_date() {
+                return maturity_date;
+            }
+
+            public void setMaturity_date(String maturity_date) {
+                this.maturity_date = maturity_date;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+        }
+
+        public static class RelationshipsBeanX {
+            /**
+             * loan : {"data":{"id":"111","type":"loan"}}
+             * releases : {"data":[{"id":"60","type":"release"},{"id":"62","type":"release"},{"id":"63","type":"release"}]}
+             */
+
+            private LoanBean loan;
+            private ReleasesBean releases;
+
+            public LoanBean getLoan() {
+                return loan;
+            }
+
+            public void setLoan(LoanBean loan) {
+                this.loan = loan;
+            }
+
+            public ReleasesBean getReleases() {
+                return releases;
+            }
+
+            public void setReleases(ReleasesBean releases) {
+                this.releases = releases;
+            }
+
+            public static class LoanBean {
+                /**
+                 * data : {"id":"111","type":"loan"}
+                 */
+
+                private DataBeanXXXX data;
+
+                public DataBeanXXXX getData() {
+                    return data;
+                }
+
+                public void setData(DataBeanXXXX data) {
+                    this.data = data;
+                }
+
+                public static class DataBeanXXXX {
+                    /**
+                     * id : 111
+                     * type : loan
+                     */
+
+                    private String id;
+                    private String type;
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+                }
+            }
+
+            public static class ReleasesBean {
+                private List<DataBeanXXXXX> data;
+
+                public List<DataBeanXXXXX> getData() {
+                    return data;
+                }
+
+                public void setData(List<DataBeanXXXXX> data) {
+                    this.data = data;
+                }
+
+                public static class DataBeanXXXXX {
+                    /**
+                     * id : 60
+                     * type : release
+                     */
+
+                    private String id;
+                    private String type;
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+                }
             }
         }
     }

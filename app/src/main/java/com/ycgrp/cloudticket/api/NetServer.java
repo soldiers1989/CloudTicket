@@ -4,7 +4,9 @@ import android.text.TextUtils;
 
 
 import com.ycgrp.cloudticket.CloudTicketApplication;
+import com.ycgrp.cloudticket.bean.AccountBlanceBean;
 import com.ycgrp.cloudticket.bean.ApproveordrejetBean;
+import com.ycgrp.cloudticket.bean.CloudTticketDetailsBean;
 import com.ycgrp.cloudticket.bean.GetRegisterInfoBean;
 import com.ycgrp.cloudticket.bean.LoginResponseBean;
 import com.ycgrp.cloudticket.bean.MyInfoBean;
@@ -12,7 +14,9 @@ import com.ycgrp.cloudticket.bean.MyLoanRecordBean;
 import com.ycgrp.cloudticket.bean.ReleaseCloudBean;
 import com.ycgrp.cloudticket.bean.StartCloudTicketBean;
 import com.ycgrp.cloudticket.bean.TradeBean;
+import com.ycgrp.cloudticket.bean.UserInfoBean;
 import com.ycgrp.cloudticket.bean.WaitApproveBean;
+import com.ycgrp.cloudticket.event.MyCloudTicketBean;
 import com.ycgrp.cloudticket.mvp.presenter.LoginBackPS;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 import com.ycgrp.cloudticket.utils.GsonUtils;
@@ -109,7 +113,7 @@ public class NetServer {
      * 我持有的云票
      * @param listener
      */
-    public void getMyCloudTicket(BaseCallBackListener listener){
+    public void getMyCloudTicket(BaseCallBackListener<MyCloudTicketBean> listener){
         if (checkToken(getObserver(listener))){
             netAPI.getMyCloudTicket().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
         }
@@ -122,6 +126,17 @@ public class NetServer {
     public void getMyInfo(BaseCallBackListener<MyInfoBean> listener){
         if (checkToken(getObserver(listener))){
             netAPI.getMyInfo().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
+        }
+    }
+
+    /**
+     *
+     * @param id 用户id
+     * @return  返回用户信息
+     */
+    public void getUserInfo(String id,BaseCallBackListener<UserInfoBean> listener){
+        if (checkToken(getObserver(listener))){
+            netAPI.getUserInfo(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
         }
     }
 
@@ -161,11 +176,28 @@ public class NetServer {
         }
     }
 
-
+    /**
+     * 购买云票
+     * @param release_id 最后一次发布的id
+     * @param listener
+     */
     public void buyCloudTicket(String release_id,BaseCallBackListener<ResponseBody> listener){
         if (checkToken(getObserver(listener))){
 
             netAPI.buyCloudTicket(release_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
+        }
+    }
+
+    /**
+     * 实名认证
+     * @param id_number 身份证号
+     * @param address 地址
+     * @param listener
+     */
+  public void verified(String id_number,String address,BaseCallBackListener<ResponseBody> listener){
+        if (checkToken(getObserver(listener))){
+
+            netAPI.verified(id_number,address).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
         }
     }
 
@@ -179,6 +211,28 @@ public class NetServer {
             netAPI.getTrade().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
         }
     }
+
+    /**
+     * 获取云票详情
+     * @param listener
+     * @param  id 云票id
+     */
+    public void getCloudTicketDetial(String id,BaseCallBackListener<CloudTticketDetailsBean> listener){
+        if (checkToken(getObserver(listener))){
+            netAPI.getCloudTicketDetial(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
+        }
+    }
+
+    /**
+     * 获取账户明细
+     * @param listener
+     */
+    public void getAccountBlance(BaseCallBackListener<AccountBlanceBean> listener){
+        if (checkToken(getObserver(listener))){
+            netAPI.getAccountBlance().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
+        }
+    }
+
 
     /**
      * 保存事件

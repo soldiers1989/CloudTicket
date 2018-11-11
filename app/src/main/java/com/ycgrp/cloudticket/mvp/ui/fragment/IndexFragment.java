@@ -21,16 +21,22 @@ import com.ycgrp.cloudticket.R;
 import com.ycgrp.cloudticket.api.BaseCallBackListener;
 import com.ycgrp.cloudticket.api.NetAPI;
 import com.ycgrp.cloudticket.api.NetServer;
+import com.ycgrp.cloudticket.bean.AccountBlanceBean;
 import com.ycgrp.cloudticket.bean.StartCloudTicketBean;
+import com.ycgrp.cloudticket.event.MessageEvent;
 import com.ycgrp.cloudticket.mvp.model.deal.StartCloudTicketListener;
 import com.ycgrp.cloudticket.mvp.ui.activity.LoanRecordActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.MyCloudTicketActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.StartCloudTicketActivity;
+import com.ycgrp.cloudticket.mvp.ui.activity.VerifiedActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.WaitApproveActivity;
+import com.ycgrp.cloudticket.utils.Constants;
 import com.ycgrp.cloudticket.utils.DisplayUtils;
 import com.ycgrp.cloudticket.utils.GlideImageLoader;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 import com.youth.banner.Banner;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,16 +93,20 @@ public class IndexFragment extends Fragment  {
      * ImmersionBar
      */
     private ImmersionBar mImmersionBar;
+    /**
+     * 投资云票
+     */
+    @BindView(R.id.rel_investment_cloud_ticket)
+    RelativeLayout rel_investment_cloud_ticket;
 
-    private String mFrom;
-    public static IndexFragment newInstance(String from){
-        IndexFragment fragment = new IndexFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("from",from);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+    /**
+     * 审批记录
+     */
+    @BindView(R.id.rel_approval_record)
+    RelativeLayout rel_approval_record;
 
+    @BindView(R.id.rel_verified)
+    RelativeLayout rel_verified;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -107,9 +117,7 @@ public class IndexFragment extends Fragment  {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
-            mFrom = getArguments().getString("from");
-        }
+
         // 标记
         isCreated = true;
 //        setTitleVisiable(false);
@@ -199,6 +207,30 @@ public class IndexFragment extends Fragment  {
     @OnClick(R.id.rel_loan_record)
     public void getMyLoanRecord(){
         startActivity(new Intent(getActivity(),LoanRecordActivity.class));
+    }
+
+    /**
+     * 投资云票
+     */
+    @OnClick(R.id.rel_investment_cloud_ticket)
+    public  void investmentCloudTicket(){
+        EventBus.getDefault().post(new MessageEvent(Constants.investment_cloud_ticket));
+    }
+
+    /**
+     * 审批记录
+     */
+    @OnClick(R.id.rel_approval_record)
+    public  void approveRecord(){
+        startActivity(new Intent(getActivity(),WaitApproveActivity.class));
+    }
+
+    /**
+     * 实名认证
+     */
+    @OnClick(R.id.rel_verified)
+    public  void Verified(){
+        startActivity(new Intent(getActivity(),VerifiedActivity.class));
     }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

@@ -21,9 +21,9 @@ public class TabDataGeneratorUtils {
 
     public static Fragment[] getFragments(String from){
         Fragment fragments[] = new Fragment[3];
-        fragments[0] = IndexFragment.newInstance(from);
-        fragments[1] = TradeFragment.newInstance(from);
-        fragments[2] = MeFragment.newInstance(from);
+        fragments[0] = new IndexFragment();
+        fragments[1] = new TradeFragment();
+        fragments[2] = new MeFragment();
         return fragments;
     }
 

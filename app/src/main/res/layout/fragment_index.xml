@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_one"
         android:orientation="horizontal">
-        <!--发起云票-->
+        <!--赊购农资-->
         <RelativeLayout
             android:id="@+id/rel_start_cloud_ticket"
             android:layout_width="0dp"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/start_cloud_ticket"
                 android:layout_centerHorizontal="true"
-                android:text="@string/tv_start_cloud_ticket"
+                android:text="赊购农资"
                 android:textColor="@color/black" />
         </RelativeLayout>
 
@@ -103,14 +103,83 @@
                 android:text="@string/check_cloud_ticket"
                 android:textColor="@color/black" />
         </RelativeLayout>
+        <!--我的云票-->
+        <RelativeLayout
+            android:id="@+id/rel_investment_cloud_ticket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/my_investment_cloud_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ig_my_cloud_ticket" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_investment_cloud_ticket"
+                android:layout_centerHorizontal="true"
+                android:text="投资云票"
+                android:textColor="@color/black" />
+        </RelativeLayout>
     </LinearLayout>
     <!--借款记录-->
     <LinearLayout
+        android:id="@+id/line_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line_two"
         android:layout_marginTop="@dimen/x15"
         android:orientation="horizontal">
+
+        <!--赊购记录-->
+        <RelativeLayout
+            android:id="@+id/rel_loan_record"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ig_loan_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/app_image_home_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ig_loan_record"
+                android:layout_centerHorizontal="true"
+                android:text="赊购记录"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+        <!--我的云票-->
+        <RelativeLayout
+            android:id="@+id/rel_approval_record"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ig_approval_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ig_my_cloud_ticket" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ig_approval_record"
+                android:layout_centerHorizontal="true"
+                android:text="审批记录"
+                android:textColor="@color/black" />
+        </RelativeLayout>
         <!--我的云票-->
         <RelativeLayout
             android:id="@+id/rel_my_cloud_ticket"
@@ -133,29 +202,80 @@
                 android:text="@string/my_cloud_ticket"
                 android:textColor="@color/black" />
         </RelativeLayout>
-        <!--借款记录-->
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_record"
+        android:layout_marginTop="@dimen/x15"
+        android:orientation="horizontal">
+        <!--实名认证-->
         <RelativeLayout
-            android:id="@+id/rel_loan_record"
+            android:id="@+id/rel_verified"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/ig_loan_record"
+                android:id="@+id/ig_verified"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/app_image_home_user" />
+                android:src="@mipmap/ig_my_cloud_ticket" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ig_loan_record"
+                android:layout_below="@+id/ig_verified"
                 android:layout_centerHorizontal="true"
-                android:text="@string/tv_loan_record"
+                android:text="实名认证"
                 android:textColor="@color/black" />
         </RelativeLayout>
+        <!--实名认证-->
+        <RelativeLayout
+            android:id="@+id/rel_verified_two"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_weight="1">
 
+            <ImageView
+                android:id="@+id/ig_verified_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ig_my_cloud_ticket" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ig_verified_two"
+                android:layout_centerHorizontal="true"
+                android:text="实名认证"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+        <!--实名认证-->
+        <RelativeLayout
+            android:id="@+id/rel_verified_three"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ig_verified_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ig_my_cloud_ticket" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ig_verified_three"
+                android:layout_centerHorizontal="true"
+                android:text="实名认证"
+                android:textColor="@color/black" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

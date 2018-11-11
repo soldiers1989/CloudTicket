@@ -11,7 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ycgrp.cloudticket.R;
+import com.ycgrp.cloudticket.api.BaseCallBackListener;
+import com.ycgrp.cloudticket.api.NetServer;
 import com.ycgrp.cloudticket.bean.MyLoanRecordBean;
+import com.ycgrp.cloudticket.bean.UserInfoBean;
+import com.ycgrp.cloudticket.utils.DateUtils;
 
 
 import butterknife.BindView;
@@ -47,29 +51,50 @@ public class MyLoanRecordAdapter extends RecyclerView.Adapter<MyLoanRecordAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyLoanRecordViewHolder holder, int position) {
-        //设置金额
-        if (mMyLoanRecordBean.getData() != null && mMyLoanRecordBean.getData().get(position).getAttributes() != null) {
-            holder.loan_amount.setText("¥"+mMyLoanRecordBean.getData().get(position).getAttributes().getAmount());
-        }
-//        设置担保人和借款人
-        if (mMyLoanRecordBean.getData() != null && mMyLoanRecordBean.getData().get(position).getRelationships() != null && mMyLoanRecordBean.getData().get(position).getRelationships().getLoanee() != null && mMyLoanRecordBean.getData().get(position).getRelationships().getGuarantor() != null) {
-            String loanee_id = mMyLoanRecordBean.getData().get(position).getRelationships().getLoanee().getData().getId();
-            String guarantor_id = mMyLoanRecordBean.getData().get(position).getRelationships().getGuarantor().getData().getId();
-            if (mMyLoanRecordBean.getIncluded() != null) {
-                for (MyLoanRecordBean.IncludedBean ic : mMyLoanRecordBean.getIncluded()) {
-                    if (ic.getId().equals(loanee_id)) {
-                        //设置借款人
-                        holder.tv_borrower_num.setText(ic.getAttributes().getName());
-                    }
-                    if (ic.getId().equals(guarantor_id)) {
-                        //设置担保人
-                        holder.tv_guarantor_num.setText(ic.getAttributes().getName());
-                    }
+    public void onBindViewHolder(@NonNull final MyLoanRecordViewHolder holder, int position) {
 
-                }
-            }
+
+        //设置金额
+        holder.price.setText(mMyLoanRecordBean.getData().get(position).getAttributes().getAmount());
+        //设置到期日
+        if (mMyLoanRecordBean.getData().get(position).getAttributes().getMaturity_date()==null){
+            holder.date_of_issue.setText("");
+        }else {
+            holder.date_of_issue.setText(mMyLoanRecordBean.getData().get(position).getAttributes().getMaturity_date());
         }
+
+        //设置状态
+        String status=mMyLoanRecordBean.getData().get(position).getAttributes().getStatus();
+
+        if (status.equals("waiting_for_review")){
+            holder.status.setText("等待审批");
+        }else if (status.equals("rejected")){
+            holder.status.setText("已拒绝");
+        }else if (status.equals("approved")){
+            holder.status.setText("进行中");
+            if (mMyLoanRecordBean.getData().get(position).getAttributes().getMaturity_date()!=null){
+
+                if (DateUtils.compareDate(DateUtils.getSystemDate(),mMyLoanRecordBean.getData().get(position).getAttributes().getMaturity_date())){
+                    holder.status.setText("逾期");
+                }
+
+            }
+        }else if (status.equals("paid")){
+            holder.status.setText("已还款");
+        }
+        //设置零售商姓名
+        NetServer.getInstance().getUserInfo(mMyLoanRecordBean.getData().get(position).getRelationships().getLoanee().getData().getId(), new BaseCallBackListener<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean result) {
+                super.onSuccess(result);
+                holder.retailer.setText(result.getData().getAttributes().getName());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
     }
 
 
@@ -81,34 +106,31 @@ public class MyLoanRecordAdapter extends RecyclerView.Adapter<MyLoanRecordAdapte
     class MyLoanRecordViewHolder extends RecyclerView.ViewHolder {
 
         /**
-         * 借款人
+         * 零售商
          */
-        @BindView(R.id.tv_borrower_num)
-        TextView tv_borrower_num;
+        @BindView(R.id.retailer)
+        TextView retailer;
         /**
-         * 担保人
+         * 金额
          */
-        @BindView(R.id.tv_guarantor_num)
-        TextView tv_guarantor_num;
+        @BindView(R.id.price)
+        TextView price;
         /**
-         * 欠款金额
+         * 到期日
          */
-        @BindView(R.id.loan_amount)
-        TextView loan_amount;
+        @BindView(R.id.date_of_issue)
+        TextView date_of_issue;
         /**
-         * 还款
+         * 状态
          */
-        @BindView(R.id.tv_repayment)
-        TextView tv_repayment;
+        @BindView(R.id.status)
+        TextView status;
 
         public MyLoanRecordViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.tv_repayment)
-        public  void repayment(){
-            Toast.makeText(mContext,"还款成功",Toast.LENGTH_SHORT).show();
-        }
+
     }
 }

@@ -1,6 +1,7 @@
 package com.ycgrp.cloudticket.mvp.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -27,8 +29,11 @@ import com.ycgrp.cloudticket.api.BaseCallBackListener;
 import com.ycgrp.cloudticket.api.NetServer;
 import com.ycgrp.cloudticket.bean.TradeBean;
 import com.ycgrp.cloudticket.event.MyCloudTicketBean;
+import com.ycgrp.cloudticket.mvp.ui.activity.CloudTicketDetailsActivity;
 import com.ycgrp.cloudticket.mvp.ui.activity.MyCloudTicketActivity;
+import com.ycgrp.cloudticket.mvp.ui.activity.WaitApproveActivity;
 import com.ycgrp.cloudticket.mvp.view.BuySuccess;
+import com.ycgrp.cloudticket.mvp.view.GetDetail;
 import com.ycgrp.cloudticket.utils.DateUtils;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 import com.ycgrp.cloudticket.utils.L;
@@ -43,7 +48,7 @@ import butterknife.ButterKnife;
 /**
  * 投资云票
  */
-public class TradeFragment extends BaseFragment implements BuySuccess {
+public class TradeFragment extends BaseFragment implements BuySuccess ,GetDetail{
 
     public static final String TAG = "TradeFragment";
     /**
@@ -99,26 +104,25 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
      */
     private ImmersionBar mImmersionBar;
 
-    private String mFrom;
-    public static TradeFragment newInstance(String from){
+    /**
+     * 没有正在出售中的云票
+     */
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
 
-        TradeFragment fragment = new TradeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("from",from);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
+    /**
+     * 获取详情
+     */
+    private GetDetail mGetDetail;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
-            mFrom = getArguments().getString("from");
-        }
+
         mImmersionBar = ImmersionBar.with(this)
           .statusBarColor(R.color.white)
         .statusBarDarkFont(true);
         mImmersionBar.init();
+        mGetDetail=this;
     }
 
 
@@ -172,16 +176,16 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
                     mTradeBean=result;
                     //没有审批贷款显示
                     if (result.getData().size() == 0) {
-//                        tv_no_data.setVisibility(View.VISIBLE);
+                        tv_no_data.setVisibility(View.VISIBLE);
                     } else {
-//                        tv_no_data.setVisibility(View.INVISIBLE);
+                        tv_no_data.setVisibility(View.INVISIBLE);
 
                     }
 
                     if (isFirstLoading) {
                         //初始化recyclerview
 
-                        mTradeAdapter=new TradeAdapter(mContext,mTradeBean,mBuySuccess);
+                        mTradeAdapter=new TradeAdapter(mContext,mTradeBean,mBuySuccess,mGetDetail);
                         //初始化recyclerview
                         get_my_cloud_ticket_recycler_view.setLayoutManager(new LinearLayoutManager(mContext));
                         get_my_cloud_ticket_recycler_view.setAdapter(mTradeAdapter);
@@ -263,5 +267,14 @@ public class TradeFragment extends BaseFragment implements BuySuccess {
     @Override
     public void buySuccess() {
         getTrade(true);
+    }
+
+    @Override
+    public void getDetail(String id,String releaseID) {
+
+        Intent intent=new Intent(getActivity(),CloudTicketDetailsActivity.class);
+        intent.putExtra("id",id);
+        intent.putExtra("releaseID",releaseID);
+        startActivity(intent);
     }
 }

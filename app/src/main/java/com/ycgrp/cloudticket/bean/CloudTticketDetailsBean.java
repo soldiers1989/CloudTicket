@@ -1,22 +1,23 @@
-package com.ycgrp.cloudticket.event;
-
+package com.ycgrp.cloudticket.bean;
 
 import java.util.List;
 
-/**
- * 我持有云票
- */
-public class MyCloudTicketBean {
+public class CloudTticketDetailsBean {
 
 
-    private List<DataBeanXX> data;
+    /**
+     * data : {"id":"42","type":"bill","attributes":{"amount":"2.0","date_of_issue":"2018-11-10","maturity_date":"2018-11-10","status":"ready_for_sale"},"relationships":{"loan":{"data":{"id":"112","type":"loan"}},"releases":{"data":[{"id":"61","type":"release"},{"id":"64","type":"release"}]}}}
+     * included : [{"id":"112","type":"loan","attributes":{"amount":"2.0","date_of_issue":"2018-11-10","maturity_date":"2018-11-10","status":"approved","name":"王老板","interest_rate":"0.02"},"relationships":{"loanee":{"data":{"id":"3","type":"user"}},"guarantor":{"data":{"id":"4","type":"user"}},"bill":{"data":{"id":"42","type":"bill"}},"endorsement":{"data":{"id":"19","type":"endorsement"}},"endorsee":{"data":{"id":"4","type":"user"}}}},{"id":"61","type":"release","attributes":{"interest_rate":"0.02"},"relationships":{"endorsement":{"data":{"id":"19","type":"endorsement"}}}},{"id":"64","type":"release","attributes":{"interest_rate":"0.6"},"relationships":{"endorsement":{"data":null}}},{"id":"19","type":"endorsement","relationships":{"endorsee":{"data":{"id":"4","type":"user"}}}},{"id":"4","type":"user","attributes":{"name":"王老板","phone_number":"18800000002"},"relationships":{"profiles":{"data":[{"id":"2","type":"user_profile"},{"id":"7","type":"user_profile"},{"id":"8","type":"user_profile"},{"id":"9","type":"user_profile"}]}}}]
+     */
+
+    private DataBeanXX data;
     private List<IncludedBean> included;
 
-    public List<DataBeanXX> getData() {
+    public DataBeanXX getData() {
         return data;
     }
 
-    public void setData(List<DataBeanXX> data) {
+    public void setData(DataBeanXX data) {
         this.data = data;
     }
 
@@ -30,10 +31,10 @@ public class MyCloudTicketBean {
 
     public static class DataBeanXX {
         /**
-         * id : 7
+         * id : 42
          * type : bill
-         * attributes : {"amount":"2003333337.0","date_of_issue":"2018-11-05","maturity_date":"2021-01-01","status":"ready_for_sale"}
-         * relationships : {"loan":{"data":{"id":"55","type":"loan"}},"releases":{"data":[{"id":"34","type":"release"},{"id":"39","type":"release"},{"id":"48","type":"release"},{"id":"54","type":"release"},{"id":"55","type":"release"}]}}
+         * attributes : {"amount":"2.0","date_of_issue":"2018-11-10","maturity_date":"2018-11-10","status":"ready_for_sale"}
+         * relationships : {"loan":{"data":{"id":"112","type":"loan"}},"releases":{"data":[{"id":"61","type":"release"},{"id":"64","type":"release"}]}}
          */
 
         private String id;
@@ -75,9 +76,9 @@ public class MyCloudTicketBean {
 
         public static class AttributesBean {
             /**
-             * amount : 2003333337.0
-             * date_of_issue : 2018-11-05
-             * maturity_date : 2021-01-01
+             * amount : 2.0
+             * date_of_issue : 2018-11-10
+             * maturity_date : 2018-11-10
              * status : ready_for_sale
              */
 
@@ -121,8 +122,8 @@ public class MyCloudTicketBean {
 
         public static class RelationshipsBean {
             /**
-             * loan : {"data":{"id":"55","type":"loan"}}
-             * releases : {"data":[{"id":"34","type":"release"},{"id":"39","type":"release"},{"id":"48","type":"release"},{"id":"54","type":"release"},{"id":"55","type":"release"}]}
+             * loan : {"data":{"id":"112","type":"loan"}}
+             * releases : {"data":[{"id":"61","type":"release"},{"id":"64","type":"release"}]}
              */
 
             private LoanBean loan;
@@ -146,7 +147,7 @@ public class MyCloudTicketBean {
 
             public static class LoanBean {
                 /**
-                 * data : {"id":"55","type":"loan"}
+                 * data : {"id":"112","type":"loan"}
                  */
 
                 private DataBean data;
@@ -161,7 +162,7 @@ public class MyCloudTicketBean {
 
                 public static class DataBean {
                     /**
-                     * id : 55
+                     * id : 112
                      * type : loan
                      */
 
@@ -199,7 +200,7 @@ public class MyCloudTicketBean {
 
                 public static class DataBeanX {
                     /**
-                     * id : 34
+                     * id : 61
                      * type : release
                      */
 
@@ -228,10 +229,10 @@ public class MyCloudTicketBean {
 
     public static class IncludedBean {
         /**
-         * id : 55
+         * id : 112
          * type : loan
-         * attributes : {"amount":"2003333337.0","date_of_issue":"2018-11-04","maturity_date":"2021-01-01","status":"approved"}
-         * relationships : {"loanee":{"data":{"id":"3","type":"user"}},"guarantor":{"data":{"id":"4","type":"user"}},"bill":{"data":{"id":"7","type":"bill"}}}
+         * attributes : {"amount":"2.0","date_of_issue":"2018-11-10","maturity_date":"2018-11-10","status":"approved","name":"王老板","interest_rate":"0.02"}
+         * relationships : {"loanee":{"data":{"id":"3","type":"user"}},"guarantor":{"data":{"id":"4","type":"user"}},"bill":{"data":{"id":"42","type":"bill"}},"endorsement":{"data":{"id":"19","type":"endorsement"}},"endorsee":{"data":{"id":"4","type":"user"}}}
          */
 
         private String id;
@@ -273,16 +274,20 @@ public class MyCloudTicketBean {
 
         public static class AttributesBeanX {
             /**
-             * amount : 2003333337.0
-             * date_of_issue : 2018-11-04
-             * maturity_date : 2021-01-01
+             * amount : 2.0
+             * date_of_issue : 2018-11-10
+             * maturity_date : 2018-11-10
              * status : approved
+             * name : 王老板
+             * interest_rate : 0.02
              */
 
             private String amount;
             private String date_of_issue;
             private String maturity_date;
             private String status;
+            private String name;
+            private String interest_rate;
 
             public String getAmount() {
                 return amount;
@@ -315,18 +320,38 @@ public class MyCloudTicketBean {
             public void setStatus(String status) {
                 this.status = status;
             }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getInterest_rate() {
+                return interest_rate;
+            }
+
+            public void setInterest_rate(String interest_rate) {
+                this.interest_rate = interest_rate;
+            }
         }
 
         public static class RelationshipsBeanX {
             /**
              * loanee : {"data":{"id":"3","type":"user"}}
              * guarantor : {"data":{"id":"4","type":"user"}}
-             * bill : {"data":{"id":"7","type":"bill"}}
+             * bill : {"data":{"id":"42","type":"bill"}}
+             * endorsement : {"data":{"id":"19","type":"endorsement"}}
+             * endorsee : {"data":{"id":"4","type":"user"}}
              */
 
             private LoaneeBean loanee;
             private GuarantorBean guarantor;
             private BillBean bill;
+            private EndorsementBean endorsement;
+            private EndorseeBean endorsee;
 
             public LoaneeBean getLoanee() {
                 return loanee;
@@ -350,6 +375,22 @@ public class MyCloudTicketBean {
 
             public void setBill(BillBean bill) {
                 this.bill = bill;
+            }
+
+            public EndorsementBean getEndorsement() {
+                return endorsement;
+            }
+
+            public void setEndorsement(EndorsementBean endorsement) {
+                this.endorsement = endorsement;
+            }
+
+            public EndorseeBean getEndorsee() {
+                return endorsee;
+            }
+
+            public void setEndorsee(EndorseeBean endorsee) {
+                this.endorsee = endorsee;
             }
 
             public static class LoaneeBean {
@@ -438,7 +479,7 @@ public class MyCloudTicketBean {
 
             public static class BillBean {
                 /**
-                 * data : {"id":"7","type":"bill"}
+                 * data : {"id":"42","type":"bill"}
                  */
 
                 private DataBeanXXXXX data;
@@ -453,8 +494,92 @@ public class MyCloudTicketBean {
 
                 public static class DataBeanXXXXX {
                     /**
-                     * id : 7
+                     * id : 42
                      * type : bill
+                     */
+
+                    private String id;
+                    private String type;
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+                }
+            }
+
+            public static class EndorsementBean {
+                /**
+                 * data : {"id":"19","type":"endorsement"}
+                 */
+
+                private DataBeanXXXXXX data;
+
+                public DataBeanXXXXXX getData() {
+                    return data;
+                }
+
+                public void setData(DataBeanXXXXXX data) {
+                    this.data = data;
+                }
+
+                public static class DataBeanXXXXXX {
+                    /**
+                     * id : 19
+                     * type : endorsement
+                     */
+
+                    private String id;
+                    private String type;
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+                }
+            }
+
+            public static class EndorseeBean {
+                /**
+                 * data : {"id":"4","type":"user"}
+                 */
+
+                private DataBeanXXXXXXX data;
+
+                public DataBeanXXXXXXX getData() {
+                    return data;
+                }
+
+                public void setData(DataBeanXXXXXXX data) {
+                    this.data = data;
+                }
+
+                public static class DataBeanXXXXXXX {
+                    /**
+                     * id : 4
+                     * type : user
                      */
 
                     private String id;

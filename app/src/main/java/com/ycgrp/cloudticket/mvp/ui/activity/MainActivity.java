@@ -22,124 +22,106 @@ import com.ycgrp.cloudticket.mvp.ui.fragment.TradeFragment;
 import com.ycgrp.cloudticket.mvp.ui.fragment.MeFragment;
 import com.ycgrp.cloudticket.mvp.ui.fragment.IndexFragment;
 import com.ycgrp.cloudticket.utils.Constants;
-import com.ycgrp.cloudticket.utils.TabDataGeneratorUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class MainActivity extends AppCompatActivity {
 
+    private TabLayout mTabLayout;
+    //Tab 文字
+    private final int[] TAB_TITLES = new int[]{R.string.index, R.string.trade, R.string.me};
+    //Tab 图片
+    private final int[] TAB_IMGS = new int[]{R.drawable.tab_index_selector, R.drawable.tab_trade_selector, R.drawable.tab_me_selector};
+    //Fragment 数组
+    private final Fragment[] TAB_FRAGMENTS = new Fragment[]{new IndexFragment(), new TradeFragment(), new MeFragment()};
+    //Tab 数目
+    private final int COUNT = TAB_TITLES.length;
+    private MyViewPagerAdapter mAdapter;
+    private ViewPager mViewPager;
 
     /**
-     * tablayout
-     */
-    @BindView(R.id.tablayout)
-    TabLayout mTabLayout;
-    /**
-     * fragment
-     */
-    private Fragment[] mFragmensts;
-    /**
-     * ImmesionBar
+     * ImmersionBar
      */
     private ImmersionBar mImmersionBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        mImmersionBar = ImmersionBar.with(this);
+        initViews();
+        mImmersionBar = ImmersionBar.with(this)
+                .statusBarColor(R.color.colorPrimary);
         mImmersionBar.init();
-        mFragmensts = TabDataGeneratorUtils.getFragments("TabLayout Tab");
-        initTab();
 
-    }
-
-    private void initTab() {
-
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                onTabItemSelected(tab.getPosition());
-
-                for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-                    View view = mTabLayout.getTabAt(i).getCustomView();
-                    ImageView icon = (ImageView) view.findViewById(R.id.tab_content_image);
-                    TextView text = (TextView) view.findViewById(R.id.tab_content_text);
-                    icon.setImageResource(TabDataGeneratorUtils.mTabRes[i]);
-                    if (i == tab.getPosition()) {
-//                        icon.setImageResource(TabDataGeneratorUtils.mTabResPressed[i]);
-                        text.setTextColor(getResources().getColor(R.color.primary));
-                    } else {
-//                        icon.setImageResource(TabDataGeneratorUtils.mTabRes[i]);
-                        text.setTextColor(getResources().getColor(R.color.black));
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        for (int i = 0; i < 3; i++) {
-            mTabLayout.addTab(mTabLayout.newTab().setCustomView(TabDataGeneratorUtils.getTabView(this, i)));
-        }
-
-
-    }
-
-    private void onTabItemSelected(int position) {
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = mFragmensts[0];
-                break;
-            case 1:
-                fragment = mFragmensts[1];
-                break;
-
-            case 2:
-                fragment = mFragmensts[2];
-                break;
-
-        }
-        if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).commit();
-        }
     }
 
     private void initViews() {
         //注册EventBus
         EventBus.getDefault().register(this);
 
+        mTabLayout = (TabLayout) findViewById(R.id.tablayout);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        setTabs(mTabLayout, this.getLayoutInflater(), TAB_TITLES, TAB_IMGS);
+
+        mAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
     }
 
+    /**
+     * @description: 设置添加Tab
+     */
+    private void setTabs(TabLayout tabLayout, LayoutInflater inflater, int[] tabTitlees, int[] tabImgs) {
+        for (int i = 0; i < tabImgs.length; i++) {
+            TabLayout.Tab tab = tabLayout.newTab();
+            View view = inflater.inflate(R.layout.tab_custom, null);
+            tab.setCustomView(view);
+
+            TextView tvTitle = (TextView) view.findViewById(R.id.tv_tab);
+            tvTitle.setText(tabTitlees[i]);
+            ImageView imgTab = (ImageView) view.findViewById(R.id.img_tab);
+            imgTab.setImageResource(tabImgs[i]);
+            tabLayout.addTab(tab);
+
+        }
+    }
+
+    /**
+     * @description: ViewPager 适配器
+     */
+    private class MyViewPagerAdapter extends FragmentPagerAdapter {
+        public MyViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return TAB_FRAGMENTS[position];
+        }
+
+        @Override
+        public int getCount() {
+            return COUNT;
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onMessageEvent(MessageEvent messageEvent) {
 
-        Toast.makeText(this, messageEvent.getMessage(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,messageEvent.getMessage(),Toast.LENGTH_LONG).show();
         //退出登录，跳转到登录界面
         if (messageEvent.getMessage().equals(Constants.loginout)) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
             restartApp();
+        }
+        if (messageEvent.getMessage().equals(Constants.investment_cloud_ticket)) {
+            mTabLayout.getTabAt(1).select();
         }
 
     }
@@ -160,8 +142,10 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         //eventBus反注册
         EventBus.getDefault().unregister(this);
-//        mImmersionBar destory
-        if (mImmersionBar != null)
+        //mImmersionBar destory
+        if (mImmersionBar!=null){
             mImmersionBar.destroy();
+
+        }
     }
 }

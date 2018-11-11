@@ -1,6 +1,7 @@
 package com.ycgrp.cloudticket.mvp.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,10 @@ import com.ycgrp.cloudticket.adapter.WaitApproveAdapter;
 import com.ycgrp.cloudticket.api.BaseCallBackListener;
 import com.ycgrp.cloudticket.api.NetServer;
 import com.ycgrp.cloudticket.bean.WaitApproveBean;
+import com.ycgrp.cloudticket.event.MyCloudTicketBean;
 import com.ycgrp.cloudticket.mvp.view.ApprovedOrRejected;
+import com.ycgrp.cloudticket.mvp.view.GetDetail;
+import com.ycgrp.cloudticket.mvp.view.ReleaseOrRecallView;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 
 import butterknife.BindView;
@@ -29,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * 待审批贷款
  */
-public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejected {
+public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejected , ReleaseOrRecallView ,GetDetail{
 
 
     /**
@@ -64,6 +68,10 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
      * 数据
      */
     private WaitApproveBean mWaitApproveBean ;
+    /**
+     * 我持有云票数据
+     */
+    private MyCloudTicketBean mMyCloudTicketBean;
 
     /**
      * 适配器
@@ -88,6 +96,14 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
      * 接口
      */
     private ApprovedOrRejected mApprovedOrRejected;
+    /**
+     * 发布接口
+     */
+    private ReleaseOrRecallView mReleaseOrRecallView;
+    /**
+     * 获取详情
+     */
+    private GetDetail mGetDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +111,8 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
         ButterKnife.bind(this);
         mWaitApproveBean=new WaitApproveBean();
         mApprovedOrRejected=this;
+        mReleaseOrRecallView = this;
+        mGetDetail = this;
 //        initRecyclerView();
 
 
@@ -119,6 +137,14 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
 
     }
 
+    /**
+     * 返回刷新ＵI
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWaitApproveList(false);
+    }
 
     /**
      * 获取待审批列表
@@ -157,18 +183,31 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
                     mWaitApproveBean = result;
 
 
-
-                    if (isFirstLoading) {
-                        //初始化recyclerview
-
-                        mWaitApproveAdapter = new WaitApproveAdapter(mContext, mWaitApproveBean,mApprovedOrRejected);
+                    NetServer.getInstance().getMyCloudTicket(new BaseCallBackListener<MyCloudTicketBean>() {
+                        @Override
+                        public void onSuccess(MyCloudTicketBean myTicket) {
+                            super.onSuccess(myTicket);
+                            mMyCloudTicketBean=myTicket;
+                            if (isFirstLoading) {
+                                //初始化recyclerview
+                                mWaitApproveAdapter = new WaitApproveAdapter(mContext, mWaitApproveBean,mMyCloudTicketBean,mApprovedOrRejected, mReleaseOrRecallView,mGetDetail );
 //                    初始化recyclerview
-                        get_wait_approve_recycler_view.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        get_wait_approve_recycler_view.setAdapter(mWaitApproveAdapter);
-                        isFirstLoading = false;
-                    } else {
-                        mWaitApproveAdapter.setWaitApproveData(mWaitApproveBean);
-                    }
+                                get_wait_approve_recycler_view.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                get_wait_approve_recycler_view.setAdapter(mWaitApproveAdapter);
+                                isFirstLoading = false;
+                            } else {
+                                mWaitApproveAdapter.setWaitApproveData(mWaitApproveBean,mMyCloudTicketBean);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
+                        }
+                    });
+
+
+
                 }
             }
 
@@ -216,4 +255,25 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
 
     }
 
+    /**
+     * 发布成功
+     */
+    @Override
+    public void releaseSuccess() {
+        showTastTips("发布成功");
+        getWaitApproveList(false);
+    }
+
+    @Override
+    public void recallSuccess() {
+
+    }
+
+    @Override
+    public void getDetail(String id,String releaseID) {
+        Intent intent=new Intent(WaitApproveActivity.this,CloudTicketDetailsActivity.class);
+        intent.putExtra("id",id);
+        intent.putExtra("releaseID",releaseID);
+        startActivity(intent);
+    }
 }

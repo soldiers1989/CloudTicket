@@ -33,10 +33,10 @@ public class BaseActivity extends AppCompatActivity {
 
     private void initData() {
         //沉浸式状态栏
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarColor(R.color.white)
-                .statusBarDarkFont(true)
-                .init();
+//        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar.statusBarColor(R.color.white)
+//                .statusBarDarkFont(true)
+//                .init();
 
 
     }

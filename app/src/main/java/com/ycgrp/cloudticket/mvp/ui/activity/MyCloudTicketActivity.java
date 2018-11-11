@@ -1,6 +1,7 @@
 package com.ycgrp.cloudticket.mvp.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.ycgrp.cloudticket.api.NetServer;
 import com.ycgrp.cloudticket.bean.MyInfoBean;
 import com.ycgrp.cloudticket.bean.WaitApproveBean;
 import com.ycgrp.cloudticket.event.MyCloudTicketBean;
+import com.ycgrp.cloudticket.mvp.view.GetDetail;
 import com.ycgrp.cloudticket.mvp.view.ReleaseOrRecallView;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 import com.ycgrp.cloudticket.utils.L;
@@ -36,7 +38,7 @@ import butterknife.ButterKnife;
 /**
  * 我的云票
  */
-public class MyCloudTicketActivity extends BaseActivity implements ReleaseOrRecallView {
+public class MyCloudTicketActivity extends BaseActivity implements ReleaseOrRecallView,GetDetail {
 
     /**
      * 显示我的云票
@@ -93,6 +95,8 @@ public class MyCloudTicketActivity extends BaseActivity implements ReleaseOrReca
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
 
+    private GetDetail mGetDetail;//获取云票详情
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +104,7 @@ public class MyCloudTicketActivity extends BaseActivity implements ReleaseOrReca
         ButterKnife.bind(this);
         mContext = MyCloudTicketActivity.this;
         mReleaseOrRecallView = this;
+       mGetDetail=this;
         mMyCloudTicketBean = new MyCloudTicketBean();
         L.e("MyCloudTickrt--"+"Oncreate()");
         getMyInfo();
@@ -194,7 +199,7 @@ public class MyCloudTicketActivity extends BaseActivity implements ReleaseOrReca
                     if (isFirstLoading) {
                         //初始化recyclerview
 
-                        mMyCloudTicketAdapter = new MyCloudTicketAdapter(mContext, mReleaseOrRecallView, mMyCloudTicketBean, name);
+                        mMyCloudTicketAdapter = new MyCloudTicketAdapter(mContext, mReleaseOrRecallView, mGetDetail,mMyCloudTicketBean, name);
                         get_my_cloud_ticket_recycler_view.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         get_my_cloud_ticket_recycler_view.setAdapter(mMyCloudTicketAdapter);
                         isFirstLoading = false;
@@ -246,5 +251,13 @@ public class MyCloudTicketActivity extends BaseActivity implements ReleaseOrReca
     public void recallSuccess() {
 
         getWaitApproveList(false);
+    }
+
+    @Override
+    public void getDetail(String id, String releaseID) {
+        Intent intent=new Intent(this,CloudTicketDetailsActivity.class);
+        intent.putExtra("id",id);
+        intent.putExtra("releaseID",releaseID);
+        startActivity(intent);
     }
 }

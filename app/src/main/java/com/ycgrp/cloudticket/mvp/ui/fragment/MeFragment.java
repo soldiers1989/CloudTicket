@@ -14,6 +14,11 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ycgrp.cloudticket.CloudTicketApplication;
 import com.ycgrp.cloudticket.R;
+import com.ycgrp.cloudticket.api.BaseCallBackListener;
+import com.ycgrp.cloudticket.api.NetServer;
+import com.ycgrp.cloudticket.bean.AccountBlanceBean;
+import com.ycgrp.cloudticket.bean.CloudTticketDetailsBean;
+import com.ycgrp.cloudticket.bean.MyInfoBean;
 import com.ycgrp.cloudticket.event.MessageEvent;
 import com.ycgrp.cloudticket.mvp.presenter.LoginBackPS;
 import com.ycgrp.cloudticket.mvp.ui.activity.LoginActivity;
@@ -45,26 +50,78 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
      */
     private ImmersionBar mImmersionBar;
 
-    private String mFrom;
-    public static MeFragment newInstance(String from){
-        MeFragment fragment = new MeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("from",from);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+    /**
+     * 名字
+     */
+    @BindView(R.id.name)
+    TextView name;
+    /**
+     * phoneNumber
+     */
+    @BindView(R.id.phoneNumber)
+    TextView phoneNumber;
+    /**
+     * 可用余额
+     */
+    @BindView(R.id.tv_avaiavle_num)
+    TextView tv_avaiavle_num;
+
+    /**
+     * 累计收益
+     */
+    @BindView(R.id.tv_cumulative_income_num)
+    TextView tv_cumulative_income_num;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
-            mFrom = getArguments().getString("from");
-        }
+
         // 标记
         isCreated = true;
         mImmersionBar = ImmersionBar.with(this)
                 .statusBarColor(R.color.white)
                 .statusBarDarkFont(true);
         mImmersionBar.init();
+
+    }
+
+    /**
+     * 设置个人信息
+     */
+    private void setInfo() {
+//        设置名字和手机
+        NetServer.getInstance().getMyInfo(new BaseCallBackListener<MyInfoBean>() {
+            @Override
+            public void onSuccess(MyInfoBean result) {
+                super.onSuccess(result);
+                if (result!=null){
+                    name.setText(result.getData().getAttributes().getName());
+                    phoneNumber.setText(result.getData().getAttributes().getPhone_number());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+//        设置可用余额和累计收益
+        NetServer.getInstance().getAccountBlance(new BaseCallBackListener<AccountBlanceBean>() {
+            @Override
+            public void onSuccess(AccountBlanceBean result) {
+                super.onSuccess(result);
+                if (result!=null){
+                    tv_avaiavle_num.setText(result.getData().getAttributes().getBalance());
+                    tv_cumulative_income_num.setText(result.getData().getAttributes().getAccumulated_earnings());
+
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+
     }
 
 
@@ -75,6 +132,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         View view=inflater.inflate(R.layout.fragment_me,container,false);
         ButterKnife.bind(this,view);
         initListener();
+        setInfo();
         return view;
     }
 

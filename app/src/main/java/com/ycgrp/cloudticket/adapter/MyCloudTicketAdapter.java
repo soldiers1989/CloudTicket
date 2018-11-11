@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.ycgrp.cloudticket.api.NetServer;
 import com.ycgrp.cloudticket.bean.ApproveordrejetBean;
 import com.ycgrp.cloudticket.bean.ReleaseCloudBean;
 import com.ycgrp.cloudticket.event.MyCloudTicketBean;
+import com.ycgrp.cloudticket.mvp.view.GetDetail;
 import com.ycgrp.cloudticket.mvp.view.ReleaseOrRecallView;
 import com.ycgrp.cloudticket.utils.GsonUtil;
 import com.ycgrp.cloudticket.utils.L;
@@ -43,12 +45,13 @@ public class MyCloudTicketAdapter extends RecyclerView.Adapter<MyCloudTicketAdap
     private MyCloudTicketBean mMyCloudTicketBean;
     private String mName;//我的名字
     private  ReleaseOrRecallView mReleaseOrRecallView;//接口发布和撤回
-
-    public MyCloudTicketAdapter(Context context,ReleaseOrRecallView releaseOrRecallView, MyCloudTicketBean myCloudTicketBean, String name) {
+    private GetDetail mGetDetail;//获取云票详情
+    public MyCloudTicketAdapter(Context context,ReleaseOrRecallView releaseOrRecallView,GetDetail getDetail, MyCloudTicketBean myCloudTicketBean, String name) {
 
         mContext = context;
         mReleaseOrRecallView=releaseOrRecallView;
         mLayoutInflater = LayoutInflater.from(mContext);
+        mGetDetail=getDetail;
         setCloudData(myCloudTicketBean);
         mName = name;
 
@@ -145,15 +148,11 @@ public class MyCloudTicketAdapter extends RecyclerView.Adapter<MyCloudTicketAdap
         TextView tv_wait_approve;
 
         /**
-         * 发布
+         * 云票item
          */
-        @BindView(R.id.tv_release)
-        TextView tv_release;
-        /**
-         * 撤回
-         */
-        @BindView(R.id.tv_recall)
-        TextView tv_recall;
+        @BindView(R.id.rel_my_cloud_ticket)
+        CardView rel_my_cloud_ticket;
+
 
         /**
          * AlertDialog对话框
@@ -165,131 +164,12 @@ public class MyCloudTicketAdapter extends RecyclerView.Adapter<MyCloudTicketAdap
             ButterKnife.bind(this, itemView);
         }
 
-        @OnClick(R.id.tv_release)
-        public void release() {
-            if (mMyCloudTicketBean.getData().get(getPosition()).getAttributes().getStatus().equals("ready_for_sale")) {
-                Toast.makeText(mContext, "该云票已发布", Toast.LENGTH_SHORT).show();
-            } else {
-//                NetServer.getInstance().release(mMyCloudTicketBean.getData().get(getPosition()).getId(),);
-                setAlertDialog();
 
-
-            }
-
+        @OnClick(R.id.rel_my_cloud_ticket)
+        public  void getDetails(){
+            mGetDetail.getDetail(mMyCloudTicketBean.getData().get(getPosition()).getId(),mMyCloudTicketBean.getData().get(getPosition()).getRelationships().getReleases().getData().get(mMyCloudTicketBean.getData().get(getPosition()).getRelationships().getReleases().getData().size()-1).getId());
         }
 
-        /**
-         * 撤回
-         */
 
-        @OnClick(R.id.tv_recall)
-        public void recall() {
-            if (mMyCloudTicketBean.getData()!=null&&mMyCloudTicketBean.getData().get(getPosition()).getAttributes()!=null
-                   &&mMyCloudTicketBean.getData().get(getPosition()).getAttributes().getStatus()!=null &&mMyCloudTicketBean.getData().get(getPosition()).getAttributes().getStatus().equals("held")) {
-                Toast.makeText(mContext, "该云票还没有发布", Toast.LENGTH_SHORT).show();
-
-            } else {
-                sendRecall(mMyCloudTicketBean.getData().get(getPosition()).getId(),mMyCloudTicketBean.getData().get(getPosition()).getRelationships().getRelease().getData().getId());
-            }
-        }
-
-        /**
-         * 弹出对话框输入利率
-         */
-        public void setAlertDialog() {
-            builder = new AlertDialog.Builder(mContext);
-            TextView title = new TextView(mContext);
-            title.setText(R.string.please_input_rate);
-            title.setGravity(Gravity.CENTER);
-            title.setTextColor(Color.BLACK);
-            title.setTextSize(20);
-            builder.setCustomTitle(title);
-            final EditText et_input_intersrest_rate=new EditText(mContext);
-            et_input_intersrest_rate.setId(R.id.input_intersrest_rate);
-            builder.setView(et_input_intersrest_rate);
-            builder.setNegativeButton(R.string.cancle, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(mContext, "取消" + mMyCloudTicketBean.getData().get(getPosition()).getAttributes().getStatus(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String txt_interest_rate=et_input_intersrest_rate.getText().toString();
-                    if (txt_interest_rate.isEmpty()){
-                        Toast.makeText(mContext, "利率不能为空", Toast.LENGTH_SHORT).show();
-                    }else {
-                        if (Float.parseFloat(txt_interest_rate)<0){
-                            Toast.makeText(mContext, "利率不能小于0", Toast.LENGTH_SHORT).show();
-                        }else {
-                            sendRelease(txt_interest_rate);
-                        }
-                    }
-                }
-            });
-            builder.show();
-        }
-
-        /**
-         * 通过接口发布到市场
-         * @param interest_rate 利率
-         */
-       public void  sendRelease(String interest_rate){
-            NetServer.getInstance().release(mMyCloudTicketBean.getData().get(getPosition()).getId(), interest_rate, new BaseCallBackListener<ReleaseCloudBean>() {
-                @Override
-                public void onSuccess(ReleaseCloudBean result) {
-                    super.onSuccess(result);
-                    Logger.addLogAdapter(new AndroidLogAdapter());
-                    if (result!=null){
-                        Logger.json(GsonUtil.toJson(result));
-                    }
-                    mReleaseOrRecallView.releaseSuccess();
-                    Toast.makeText(mContext,R.string.release_success,Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    super.onError(e);
-
-                    Toast.makeText(mContext,mContext.getString(R.string.release_failed)+e.getMessage(),Toast.LENGTH_SHORT).show();
-
-                }
-
-                @Override
-                public void onComplete() {
-                    super.onComplete();
-                }
-            });
-        }
-
-        /**
-         *
-         * @param bill_id 云票id
-         * @param id 发布id
-         */
-        public void sendRecall(String bill_id,String id){
-            NetServer.getInstance().recall(bill_id, id, new BaseCallBackListener<ResponseBody>() {
-                @Override
-                public void onSuccess(ResponseBody result) {
-                    super.onSuccess(result);
-                    L.e("撤回状态---"+result.toString());
-                    mReleaseOrRecallView.recallSuccess();
-                    Toast.makeText(mContext,R.string.recall_success,Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Toast.makeText(mContext,mContext.getString(R.string.recall_failed)+e.getMessage(),Toast.LENGTH_SHORT).show();
-                    L.e("撤回失败---"+e.getMessage());
-                    super.onError(e);
-                }
-
-                @Override
-                public void onComplete() {
-                    super.onComplete();
-                }
-            });
-        }
     }
 }
