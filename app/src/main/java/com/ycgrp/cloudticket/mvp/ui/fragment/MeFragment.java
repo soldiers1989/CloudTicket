@@ -2,6 +2,7 @@ package com.ycgrp.cloudticket.mvp.ui.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -22,6 +24,7 @@ import com.ycgrp.cloudticket.bean.MyInfoBean;
 import com.ycgrp.cloudticket.event.MessageEvent;
 import com.ycgrp.cloudticket.mvp.presenter.LoginBackPS;
 import com.ycgrp.cloudticket.mvp.ui.activity.LoginActivity;
+import com.ycgrp.cloudticket.mvp.ui.activity.SettingActivity;
 import com.ycgrp.cloudticket.utils.Constants;
 import com.ycgrp.cloudticket.utils.L;
 
@@ -29,6 +32,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class MeFragment extends BaseFragment implements View.OnClickListener {
@@ -71,6 +75,11 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
      */
     @BindView(R.id.tv_cumulative_income_num)
     TextView tv_cumulative_income_num;
+    /**
+     * 设置
+     */
+    @BindView(R.id.rel_setting)
+    RelativeLayout rel_setting;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,5 +182,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    /**
+     * 设置
+     */
+    @OnClick(R.id.rel_setting)
+    public  void setting(){
+        startActivity(new Intent(getActivity(),SettingActivity.class));
     }
 }

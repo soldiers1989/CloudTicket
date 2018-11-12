@@ -65,7 +65,7 @@ public class LoginBackPS {
             if(!TextUtils.isEmpty(string)){
                 if(TextUtils.isEmpty(key)){
                     getInitpref(context);
-                    Toast.makeText(context,"读取成功",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"读取成功",Toast.LENGTH_SHORT).show();
                 }
                 String decrypt =null;
                 try {

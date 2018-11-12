@@ -68,6 +68,7 @@ public class TradeAdapter extends RecyclerView.Adapter<TradeAdapter.TradeViewHol
         holder.tv_accept_num.setText(mTradeBean.getData().get(position).getAttributes().getDate_of_issue());
         holder.tv_expire_num.setText(mTradeBean.getData().get(position).getAttributes().getMaturity_date());
         holder.tv_value_number.setText("¥" + mTradeBean.getData().get(position).getAttributes().getAmount());
+        holder.current_prince.setText("¥" + mTradeBean.getData().get(position).getAttributes().getAmount());
         String date_of_issue = mTradeBean.getData().get(position).getAttributes().getDate_of_issue();
         String maturity_date = mTradeBean.getData().get(position).getAttributes().getMaturity_date();
 

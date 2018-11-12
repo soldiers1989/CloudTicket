@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -172,10 +173,43 @@ public class CloudTicketDetailsActivity extends BaseActivity {
     @OnClick(R.id.btn_two)
     public void click_btn_two() {
         if (btn_two.getText().toString().equals("贴现")) {
-
+            DiscountAlertDialog();
         }
     }
 
+    /**
+     * 弹出确定利率
+     */
+    public void DiscountAlertDialog(){
+        builder = new AlertDialog.Builder(this);
+        TextView title = new TextView(this);
+        title.setText("请确认贴现利率");
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        builder.setCustomTitle(title);
+        TextView rate=new TextView(this);
+        rate.setText("贴现利率为:0.01%");
+        rate.setTextSize(25);
+        rate.setTextColor(Color.RED);
+        rate.setGravity(Gravity.CENTER);
+
+
+        builder.setView(rate);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setPositiveButton("贴现", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
+    }
     /**
      * 弹出对话框输入利率
      */
@@ -375,7 +409,7 @@ public class CloudTicketDetailsActivity extends BaseActivity {
                                        //  holder为当前登录人
                                        if (holderID.equals(result.getData().getId())) {
                                            if (CloudTicketStatus.equals("held")) {
-                                               btn_one.setText("卖出");
+                                               btn_one.setText("发布");
                                                btn_two.setText("贴现");
                                            } else if (CloudTicketStatus.equals("ready_for_sale")) {
                                                btn_one.setText("撤回");

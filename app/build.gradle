@@ -67,4 +67,8 @@ dependencies {
     //没有使用特殊Header，可以不加这行
     //右上角弹出
     implementation 'com.zaaach:toprightmenu:1.1.2'
+    //zxing二维码
+    implementation 'com.google.zxing:core:3.3.3'
+    //zxing二维码识别
+    implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.3.4'
 }

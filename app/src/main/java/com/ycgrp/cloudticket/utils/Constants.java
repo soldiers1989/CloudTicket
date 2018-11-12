@@ -13,4 +13,8 @@ public class Constants {
      * 投资云票
      */
     public static final String investment_cloud_ticket="investment_cloud_ticket";
+    /**
+     * 扫码获取零售商id
+     */
+    public static final String scanRetailerID="scanRetailerID";
 }

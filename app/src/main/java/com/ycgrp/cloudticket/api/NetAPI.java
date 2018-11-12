@@ -3,6 +3,7 @@ package com.ycgrp.cloudticket.api;
 
 import com.ycgrp.cloudticket.bean.AccountBlanceBean;
 import com.ycgrp.cloudticket.bean.ApproveordrejetBean;
+import com.ycgrp.cloudticket.bean.BeforRetailerBean;
 import com.ycgrp.cloudticket.bean.CloudTticketDetailsBean;
 import com.ycgrp.cloudticket.bean.GetRegisterInfoBean;
 import com.ycgrp.cloudticket.bean.LoginResponseBean;
@@ -172,4 +173,7 @@ public interface NetAPI {
     @FormUrlEncoded
     @POST("/certifications")
     Observable<ResponseBody>verified(@Field("user_profile[id_number]")String id_number,@Field("user_profile[address]")String address);
+
+    @GET("/retailers/worked")
+    Observable<BeforRetailerBean>getBeforRetailer();
 }

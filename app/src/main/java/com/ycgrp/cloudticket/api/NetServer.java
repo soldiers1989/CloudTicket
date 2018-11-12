@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.ycgrp.cloudticket.CloudTicketApplication;
 import com.ycgrp.cloudticket.bean.AccountBlanceBean;
 import com.ycgrp.cloudticket.bean.ApproveordrejetBean;
+import com.ycgrp.cloudticket.bean.BeforRetailerBean;
 import com.ycgrp.cloudticket.bean.CloudTticketDetailsBean;
 import com.ycgrp.cloudticket.bean.GetRegisterInfoBean;
 import com.ycgrp.cloudticket.bean.LoginResponseBean;
@@ -198,6 +199,17 @@ public class NetServer {
         if (checkToken(getObserver(listener))){
 
             netAPI.verified(id_number,address).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
+        }
+    }
+
+    /**
+     * 获取以前担保过的零售商
+     * @param listener
+     */
+  public void getBeforRetailer(BaseCallBackListener<BeforRetailerBean> listener){
+        if (checkToken(getObserver(listener))){
+
+            netAPI.getBeforRetailer().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(getObserver(listener));
         }
     }
 

@@ -43,6 +43,8 @@
     <color name="rel_av_bg_transparent_color">#80787878</color>
     <!--发起云票-->
     <color name="tv_scan">#707070</color>
+    <color name="title_wite_color">#80FFFFFF</color>
+    <color name="color_control_activated">#1444e2</color>
     <!--我的云票-->
     <color name="tv_alredy_release">#e4610f</color>
 </resources>

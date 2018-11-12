@@ -105,6 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥625625"
+                        android:visibility="invisible"
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/tv_money_color_two"
                         android:textSize="@dimen/x15" />

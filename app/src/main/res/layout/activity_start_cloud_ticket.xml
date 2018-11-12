@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
     tools:context=".mvp.ui.activity.StartCloudTicketActivity">
     <!--ToolBar-->
@@ -13,69 +14,179 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:titleMarginStart="@dimen/x150"
-        app:titleTextColor="@color/black">
+        app:titleTextColor="@color/title_wite_color">
+
         <TextView
             android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:textSize="20sp"
+            android:text="赊账购资"
             android:textColor="@color/black"
-            android:text="@string/tv_start_cloud_ticket"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
-        <ImageView
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add"
             android:layout_gravity="right"
-            android:layout_marginRight="@dimen/x10"/>
+            android:layout_marginRight="@dimen/x10"
+            android:text="确认"
+            android:textColor="@color/black" />
     </android.support.v7.widget.Toolbar>
 
 
-    <!--输入金额-->
-<android.support.design.widget.TextInputLayout
-    android:layout_below="@+id/toolbar"
-    android:id="@+id/layout_input_amount"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/input_amount"
+    <!--零售商-->
+    <RelativeLayout
+        android:id="@+id/rel_retailer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x50"
-        android:inputType="number"
-        android:hint="请输入发起金额"/>
-</android.support.design.widget.TextInputLayout>
-<!--担保人Id-->
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/layout_input_guarantor_id"
-        android:layout_below="@+id/layout_input_amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/input_guarantor_id"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/x50"
-            android:inputType="number"
-            android:hint="请输入担保人Id"/>
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="@dimen/x100"
+        android:layout_below="@+id/toolbar">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_start_cloud_ticket"
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="零售商"
+                android:textColor="@color/black" />
+            <!--零售商名字-->
+            <TextView
+                android:id="@+id/retailer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:text=""
+                android:textColor="@color/black" />
+            <!--零售商地址-->
+            <TextView
+                android:id="@+id/retailer_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x5"
+                android:text=""
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/rel_retailer"
+        android:background="@color/view_line" />
+    <!--扫码添加零售商-->
+    <RelativeLayout
+        android:id="@+id/rel_add_retailer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_retailer">
+
+        <TextView
+            android:id="@+id/tv_add_retailer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_input_guarantor_id"
-            android:text="@string/tv_start_cloud_ticket"/>
+            android:layout_centerVertical="true"
+            android:text="扫码添加零售商"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/ig_add_retailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@drawable/scan" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/rel_add_retailer"
+        android:background="@color/view_line" />
+    <!--选择过往零售商-->
+    <RelativeLayout
+        android:id="@+id/rel_select_befor_retailer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rel_add_retailer"
+        android:layout_marginTop="@dimen/x5">
+
+        <TextView
+            android:id="@+id/tv_select_befor_retailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="选择过往零售商"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/ig_select_befor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x10"
+            android:src="@mipmap/acorn_center_next" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line_two"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/rel_select_befor_retailer"
+        android:background="@color/view_line" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line_two"
+        android:layout_marginTop="@dimen/x20"
+        android:text="金额"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_num">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/layout_input_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/et_price">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/input_price"
+                android:layout_width="@dimen/x300"
+                android:layout_height="wrap_content"
+                android:theme="@style/et_price"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/layout_input_price"
+            android:text="元"
+            android:textColor="@color/black" />
+    </RelativeLayout>
+
 
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicatorName="BallSpinFadeLoaderIndicator"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        />
+        app:indicatorName="BallSpinFadeLoaderIndicator" />
 
 </RelativeLayout>

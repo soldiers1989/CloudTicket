@@ -251,7 +251,7 @@
               android:id="@+id/btn_one"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="卖出"/>
+              android:text=""/>
         </android.support.design.widget.BottomNavigationView>
         <!--第二个按钮-->
         <android.support.design.widget.BottomNavigationView
@@ -263,7 +263,7 @@
                 android:id="@+id/btn_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="贴现"/>
+                android:text=""/>
         </android.support.design.widget.BottomNavigationView>
     </RelativeLayout>
 
