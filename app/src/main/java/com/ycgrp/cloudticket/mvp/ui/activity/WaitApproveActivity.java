@@ -271,6 +271,7 @@ public class WaitApproveActivity extends BaseActivity implements ApprovedOrRejec
 
     @Override
     public void getDetail(String id,String releaseID) {
+
         Intent intent=new Intent(WaitApproveActivity.this,CloudTicketDetailsActivity.class);
         intent.putExtra("id",id);
         intent.putExtra("releaseID",releaseID);

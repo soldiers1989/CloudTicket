@@ -45,6 +45,7 @@ public class VerifiedActivity extends BaseActivity {
      */
     @BindView(R.id.rela_verified)
     RelativeLayout rela_verified;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +55,14 @@ public class VerifiedActivity extends BaseActivity {
     }
 
     @OnClick(R.id.submit)
-    public  void Submit(){
-        String ed_id_card_tx=ed_id_card.getText().toString();
-        String ed_address_tx=ed_address.getText().toString();
-        if (ed_id_card_tx==null){
+    public void Submit() {
+        String ed_id_card_tx = ed_id_card.getText().toString();
+        String ed_address_tx = ed_address.getText().toString();
+        if (ed_id_card_tx == null) {
             showTastTips("身份证号码为空");
-        }else if (ed_address_tx==null){
+        } else if (ed_address_tx == null) {
             showTastTips("地址不能为空");
-        }else {
+        } else {
             NetServer.getInstance().verified(ed_id_card_tx, ed_address_tx, new BaseCallBackListener<ResponseBody>() {
                 @Override
                 public void onSuccess(ResponseBody result) {
@@ -78,17 +79,20 @@ public class VerifiedActivity extends BaseActivity {
         }
     }
 
-    public  void judgeVerified(){
+    public void judgeVerified() {
 
         NetServer.getInstance().getMyInfo(new BaseCallBackListener<MyInfoBean>() {
             @Override
             public void onSuccess(MyInfoBean result) {
                 super.onSuccess(result);
-                if (result!=null){
-                    if (result.getData().getRelationships().getProfiles().getData().get(result.getData().getRelationships().getProfiles().getData().size()-1).getType().equals("user_profile")){
+                if (result != null) {
+                    if (result.getData().getRelationships().getProfiles().getData().isEmpty()) {
+                        rela_verified.setVisibility(View.VISIBLE);
+                        tv_alerady_finish_verified.setVisibility(View.INVISIBLE);
+
+                    } else if (result.getData().getRelationships().getProfiles().getData().get(result.getData().getRelationships().getProfiles().getData().size() - 1).getType().equals("user_profile")) {
                         rela_verified.setVisibility(View.INVISIBLE);
                         tv_alerady_finish_verified.setVisibility(View.VISIBLE);
-
                     }
                 }
             }

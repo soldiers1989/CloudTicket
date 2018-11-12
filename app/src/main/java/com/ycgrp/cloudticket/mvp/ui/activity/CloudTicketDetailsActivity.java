@@ -133,10 +133,26 @@ public class CloudTicketDetailsActivity extends BaseActivity {
     public void click_btn_one() {
         if (btn_one.getText().equals("买入")) {
             buy(releaseID,id);
-        } else if (btn_one.getText().toString().equals("发布")) {
+        } else if (btn_one.getText().toString().equals("卖出")) {
             setAlertDialog();
         } else if (btn_one.getText().toString().equals("撤回")) {
-            sendRecall(id,releaseID);
+            NetServer.getInstance().getCloudTicketDetial(id, new BaseCallBackListener<CloudTticketDetailsBean>() {
+                @Override
+                public void onSuccess(CloudTticketDetailsBean result) {
+                    super.onSuccess(result);
+                    if (result!=null){
+                     releaseID=result.getData().getRelationships().getReleases().getData().get(result.getData().getRelationships().getReleases().getData().size()-1).getId();
+                        sendRecall(id,releaseID);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    showTastTips("卖出失败"+e.getMessage());
+                }
+            });
+
 
         }
     }
@@ -151,7 +167,7 @@ public class CloudTicketDetailsActivity extends BaseActivity {
             public void onSuccess(ResponseBody result) {
                 super.onSuccess(result);
                 L.e("撤回状态---"+result.toString());
-                btn_one.setText("发布");
+                btn_one.setText("卖出");
                 showTastTips("撤回成功");
             }
 
@@ -262,7 +278,7 @@ public class CloudTicketDetailsActivity extends BaseActivity {
                 if (result != null) {
                     Logger.json(GsonUtil.toJson(result));
                 }
-                showTastTips("发布成功");
+                showTastTips("卖出成功");
                 //刷新UI
                 btn_one.setText("撤回");
 
@@ -271,7 +287,7 @@ public class CloudTicketDetailsActivity extends BaseActivity {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                showTastTips("发布失败" + e.getMessage());
+                showTastTips("卖出失败" + e.getMessage());
 
             }
 
@@ -294,7 +310,7 @@ public class CloudTicketDetailsActivity extends BaseActivity {
             public void onSuccess(ResponseBody result) {
                 showTastTips("购买成功");
                 //刷新UI
-              btn_one.setText("发布");
+              btn_one.setText("卖出");
                 super.onSuccess(result);
             }
 
@@ -409,7 +425,7 @@ public class CloudTicketDetailsActivity extends BaseActivity {
                                        //  holder为当前登录人
                                        if (holderID.equals(result.getData().getId())) {
                                            if (CloudTicketStatus.equals("held")) {
-                                               btn_one.setText("发布");
+                                               btn_one.setText("卖出");
                                                btn_two.setText("贴现");
                                            } else if (CloudTicketStatus.equals("ready_for_sale")) {
                                                btn_one.setText("撤回");

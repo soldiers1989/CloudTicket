@@ -66,6 +66,7 @@ public class WaitApproveBean {
 
         public RelationshipsBean getRelationships() {
             return relationships;
+
         }
 
         public void setRelationships(RelationshipsBean relationships) {
@@ -128,6 +129,11 @@ public class WaitApproveBean {
             private LoaneeBean loanee;
             private GuarantorBean guarantor;
             private BillBean bill;
+            private ReleasesBean releases;
+
+            public ReleasesBean getReleases() {
+                return releases;
+            }
 
             public LoaneeBean getLoanee() {
                 return loanee;
@@ -153,6 +159,43 @@ public class WaitApproveBean {
                 this.bill = bill;
             }
 
+            public static class ReleasesBean {
+                private List<DataBeanX> data;
+
+                public List<DataBeanX> getData() {
+                    return data;
+                }
+
+                public void setData(List<DataBeanX> data) {
+                    this.data = data;
+                }
+
+                public static class DataBeanX {
+                    /**
+                     * id : 84
+                     * type : release
+                     */
+
+                    private String id;
+                    private String type;
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+                }
+            }
             public static class LoaneeBean {
                 /**
                  * data : {"id":"3","type":"user"}
@@ -277,6 +320,8 @@ public class WaitApproveBean {
                         this.type = type;
                     }
                 }
+
+
             }
         }
     }

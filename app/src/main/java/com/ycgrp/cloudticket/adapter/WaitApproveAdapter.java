@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -134,18 +135,24 @@ public class WaitApproveAdapter extends RecyclerView.Adapter<WaitApproveAdapter.
 //            }
 //            当 loan.status == approved 时
 //            loan.bill.releases 如果是 [] 就说明这次贷款审批后零售商还没有发布过，这时才显示这个发布按钮
-           String bill_id=mWaitApproveBeans.getData().get(mWaitApproveBeans.getData().size()-1).getRelationships().getBill().getData().getId();
-           for (WaitApproveBean.IncludedBean ic:mWaitApproveBeans.getIncluded()){
-               if (ic.getId().equals(bill_id)&&ic.getType().equals("")){
-                   if (ic.getRelationships().getReleases().getData().isEmpty()){
-                       holder.tv_approve.setText("发布");
-                       holder.tv_reject.setText("还款");
-                   }else {
-                       holder.tv_approve.setText("查看云票");
-                       holder.tv_reject.setText("还款");
-                   }
-               }
-           }
+            String bill_id=mWaitApproveBeans.getData().get(mWaitApproveBeans.getData().size()-1).getRelationships().getBill().getData().getId();
+
+
+            for (WaitApproveBean.IncludedBean ic:mWaitApproveBeans.getIncluded()){
+
+                if (ic.getId().equals(bill_id)&&ic.getType().equals("bill")){
+                    Log.d("changdu---",ic.getRelationships().getReleases().getData().size()+"---");
+                    if (ic.getRelationships().getReleases().getData().isEmpty()){
+                        holder.tv_approve.setText("发布");
+                        holder.tv_reject.setText("还款");
+                    }else {
+                        holder.tv_approve.setText("查看云票");
+                        holder.tv_reject.setText("还款");
+
+
+                    }
+                }
+            }
 
             //设置状态
             if (DateUtils.compareDate(currentDate, maturity_dates)) {
@@ -253,11 +260,17 @@ public class WaitApproveAdapter extends RecyclerView.Adapter<WaitApproveAdapter.
                 setAlertDialog();
             } else if (tv_approve.getText().toString().equals("查看云票")) {
 //                Toast.makeText(mContext, "查看云票", Toast.LENGTH_SHORT).show();
-                String id = mWaitApproveBeans.getData().get(mWaitApproveBeans.getData().size() - getPosition() - 1).getRelationships().getBill().getData().getId();
+                String id = mWaitApproveBeans.getData().get(mWaitApproveBeans.getData().size()-1).getRelationships().getBill().getData().getId();
                 String releaseID;
-                releaseID=mWaitApproveBeans.getData().get(mWaitApproveBeans.getData().size()-1).getRelationships().getBill().getData().getId();
-                //获取详情
-                mGetDetail.getDetail(id, releaseID);
+                for (WaitApproveBean.IncludedBean ic:mWaitApproveBeans.getIncluded()){
+                    if (ic.getId().equals(id)){
+                        releaseID=ic.getRelationships().getReleases().getData().get(ic.getRelationships().getReleases().getData().size()-1).getId();
+                        //获取详情
+                        mGetDetail.getDetail(id, releaseID);
+                    }
+                }
+
+
             }
 //
 
